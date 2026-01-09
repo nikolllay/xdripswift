@@ -1,0 +1,7 @@
+"nightscouttestresult_verificationsuccessfulalerttitle" = "Проверката успешна";
+"nightscouttestresult_verificationsuccessfulalertbody" = "Вашият Nightscout сайт беше потвърден успешно";
+"nightscouttestresult_verificationerroralerttitle" = "Грешка при проверката";
+"warningAPIKeyOrURLIsnil" = "Вашият Nightscout URL (и по желание API_SECRET или Token) трябва да бъде зададен, преди да можете да стартирате теста";
+"nightscoutAPIKeyAndURLStartedTitle" = "Проверка...";
+"nightscoutAPIKeyAndURLStartedBody" = "Тестът за проверка на Nightscout стартира\n\nТова съобщение трябва да изчезне автоматично скоро";
+

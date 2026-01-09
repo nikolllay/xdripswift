@@ -906,6 +906,29 @@
 		4166BFCB28C3501500199980 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/LibreStates.strings; sourceTree = "<group>"; };
 		4166BFCC28C3501500199980 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Snooze.strings; sourceTree = "<group>"; };
 		4166BFCD28C3501500199980 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/LibreNFC.strings; sourceTree = "<group>"; };
+		B6B6AA0128C4501500190B01 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/AlertTypesSettingsView.strings; sourceTree = "<group>"; };
+		B6B6AA0228C4501500190B02 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Alerts.strings; sourceTree = "<group>"; };
+		B6B6AA0328C4501500190B03 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/BgReadings.strings; sourceTree = "<group>"; };
+		B6B6AA0428C4501500190B04 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/BluetoothPeripheralView.strings; sourceTree = "<group>"; };
+		B6B6AA0528C4501500190B05 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/BluetoothPeripheralsView.strings; sourceTree = "<group>"; };
+		B6B6AA0628C4501500190B06 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/CalibrationRequest.strings; sourceTree = "<group>"; };
+		B6B6AA0728C4501500190B07 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Common.strings; sourceTree = "<group>"; };
+		B6B6AA0828C4501500190B08 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/DexcomShareTestResult.strings; sourceTree = "<group>"; };
+		B6B6AA0928C4501500190B09 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/ErrorMessages.strings; sourceTree = "<group>"; };
+		B6B6AA0A28C4501500190B0A /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/HomeView.strings; sourceTree = "<group>"; };
+		B6B6AA0B28C4501500190B0B /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		B6B6AA0C28C4501500190B0C /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/LibreErrors.strings; sourceTree = "<group>"; };
+		B6B6AA0D28C4501500190B0D /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/LibreNFC.strings; sourceTree = "<group>"; };
+		B6B6AA0E28C4501500190B0E /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/LibreStates.strings; sourceTree = "<group>"; };
+		B6B6AA0F28C4501500190B0F /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B6B6AA1028C4501500190B10 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/M5StackView.strings; sourceTree = "<group>"; };
+		B6B6AA1128C4501500190B11 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Main.strings; sourceTree = "<group>"; };
+		B6B6AA1228C4501500190B12 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/NightscoutTestResult.strings; sourceTree = "<group>"; };
+		B6B6AA1328C4501500190B13 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/SettingsViews.strings; sourceTree = "<group>"; };
+		B6B6AA1428C4501500190B14 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Snooze.strings; sourceTree = "<group>"; };
+		B6B6AA1528C4501500190B15 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/SpeakReading.strings; sourceTree = "<group>"; };
+		B6B6AA1628C4501500190B16 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Treatments.strings; sourceTree = "<group>"; };
+		B6B6AA1728C4501500190B17 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/WatlaaView.strings; sourceTree = "<group>"; };
 		47046EA32A6E8BA700A6F736 /* TextsBgReadings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsBgReadings.swift; sourceTree = "<group>"; };
 		47046EA82A6E8F7B00A6F736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BgReadings.strings; sourceTree = "<group>"; };
 		47046EAA2A6E8F8200A6F736 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/BgReadings.strings; sourceTree = "<group>"; };
@@ -1070,6 +1093,9 @@
 		47FB28072636B04200042FFB /* StatisticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsManager.swift; sourceTree = "<group>"; };
 		666E283826F7E54C00ACE4DF /* xDrip.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = xDrip.xcconfig; path = xdrip/xDrip.xcconfig; sourceTree = "<group>"; };
 		666E283926F7E54C00ACE4DF /* Version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Version.xcconfig; path = xdrip/Version.xcconfig; sourceTree = "<group>"; };
+		956294502F11989A00170384 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		956294512F11989E00170384 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Main.strings; sourceTree = "<group>"; };
+		956294522F11989F00170384 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		CE1B2FC825D0261500F642F5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Alerts.strings; sourceTree = "<group>"; };
 		CE1B2FCD25D0264900F642F5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AlertTypesSettingsView.strings; sourceTree = "<group>"; };
 		CE1B2FCE25D0264900F642F5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/WatlaaView.strings; sourceTree = "<group>"; };
@@ -4033,6 +4059,7 @@
 				da,
 				uk,
 				el,
+				bg,
 			);
 			mainGroup = F8AC425121ADEBD60078C348;
 			packageReferences = (
@@ -4897,7 +4924,8 @@
 				47046EA82A6E8F7B00A6F736 /* en */,
 				47046EAA2A6E8F8200A6F736 /* es */,
 				47DB06C02A6FB3CC00267BE3 /* nl */,
-			);
+			
+				B6B6AA0328C4501500190B03 /* bg */,);
 			name = BgReadings.strings;
 			sourceTree = "<group>";
 		};
@@ -4922,7 +4950,8 @@
 				F8E4DCE02805F7FB007CF822 /* da */,
 				F8D094EF2846BDD50087FFEA /* uk */,
 				4166BFBD28C3501500199980 /* el */,
-			);
+			
+				B6B6AA0528C4501500190B05 /* bg */,);
 			name = BluetoothPeripheralsView.strings;
 			sourceTree = "<group>";
 		};
@@ -4947,7 +4976,8 @@
 				F8E4DCF02805F7FD007CF822 /* da */,
 				F8D094FE2846BDD70087FFEA /* uk */,
 				4166BFCD28C3501500199980 /* el */,
-			);
+			
+				B6B6AA0D28C4501500190B0D /* bg */,);
 			name = LibreNFC.strings;
 			sourceTree = "<group>";
 		};
@@ -4972,7 +5002,8 @@
 				F8E4DCE12805F7FB007CF822 /* da */,
 				F8D094F02846BDD50087FFEA /* uk */,
 				4166BFBE28C3501500199980 /* el */,
-			);
+			
+				B6B6AA0428C4501500190B04 /* bg */,);
 			name = BluetoothPeripheralView.strings;
 			sourceTree = "<group>";
 		};
@@ -4992,6 +5023,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				47CD641B2BE9506C002BDA68 /* Base */,
+				956294522F11989F00170384 /* bg */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -5013,7 +5045,8 @@
 			children = (
 				CE1B2FD225D0264900F642F5 /* fr */,
 				198D44D4260A3A3400A2B4A2 /* sv */,
-			);
+			
+				B6B6AA0B28C4501500190B0B /* bg */,);
 			name = LaunchScreen.strings;
 			sourceTree = "<group>";
 		};
@@ -5021,7 +5054,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				CE1B2FD525D0264A00F642F5 /* fr */,
-			);
+			
+				B6B6AA1128C4501500190B11 /* bg */,);
 			name = Main.strings;
 			sourceTree = "<group>";
 		};
@@ -5045,7 +5079,8 @@
 				F8E4DCDD2805F7FB007CF822 /* da */,
 				F8D094EC2846BDD50087FFEA /* uk */,
 				4166BFBA28C3501500199980 /* el */,
-			);
+			
+				B6B6AA1628C4501500190B16 /* bg */,);
 			name = Treatments.strings;
 			sourceTree = "<group>";
 		};
@@ -5070,7 +5105,8 @@
 				F8E4DCEC2805F7FD007CF822 /* da */,
 				F8D094FA2846BDD70087FFEA /* uk */,
 				4166BFC928C3501500199980 /* el */,
-			);
+			
+				B6B6AA1728C4501500190B17 /* bg */,);
 			name = WatlaaView.strings;
 			sourceTree = "<group>";
 		};
@@ -5095,7 +5131,8 @@
 				F8E4DCEE2805F7FD007CF822 /* da */,
 				F8D094FC2846BDD70087FFEA /* uk */,
 				4166BFCB28C3501500199980 /* el */,
-			);
+			
+				B6B6AA0E28C4501500190B0E /* bg */,);
 			name = LibreStates.strings;
 			sourceTree = "<group>";
 		};
@@ -5120,7 +5157,8 @@
 				F8E4DCE82805F7FC007CF822 /* da */,
 				F8D094F62846BDD60087FFEA /* uk */,
 				4166BFC528C3501500199980 /* el */,
-			);
+			
+				B6B6AA1028C4501500190B10 /* bg */,);
 			name = M5StackView.strings;
 			sourceTree = "<group>";
 		};
@@ -5145,6 +5183,7 @@
 				4798BAC827BA6AA8002583BC /* tr */,
 				F8E4DCDB2805F7FA007CF822 /* da */,
 				4166BFB828C3501500199980 /* el */,
+				956294512F11989E00170384 /* bg */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -5169,6 +5208,7 @@
 				4798BADE27BA79B8002583BC /* sv */,
 				F8E4DCDA2805F7FA007CF822 /* da */,
 				4166BFB728C3501500199980 /* el */,
+				956294502F11989A00170384 /* bg */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -5194,7 +5234,8 @@
 				F8E4DCED2805F7FD007CF822 /* da */,
 				F8D094FB2846BDD70087FFEA /* uk */,
 				4166BFCA28C3501500199980 /* el */,
-			);
+			
+				B6B6AA0C28C4501500190B0C /* bg */,);
 			name = LibreErrors.strings;
 			sourceTree = "<group>";
 		};
@@ -5219,7 +5260,8 @@
 				F8E4DCE92805F7FC007CF822 /* da */,
 				F8D094F72846BDD60087FFEA /* uk */,
 				4166BFC628C3501500199980 /* el */,
-			);
+			
+				B6B6AA1228C4501500190B12 /* bg */,);
 			name = NightscoutTestResult.strings;
 			sourceTree = "<group>";
 		};
@@ -5244,7 +5286,8 @@
 				F8E4DCDE2805F7FB007CF822 /* da */,
 				F8D094ED2846BDD50087FFEA /* uk */,
 				4166BFBB28C3501500199980 /* el */,
-			);
+			
+				B6B6AA0228C4501500190B02 /* bg */,);
 			name = Alerts.strings;
 			sourceTree = "<group>";
 		};
@@ -5269,7 +5312,8 @@
 				F8E4DCDF2805F7FB007CF822 /* da */,
 				F8D094EE2846BDD50087FFEA /* uk */,
 				4166BFBC28C3501500199980 /* el */,
-			);
+			
+				B6B6AA0128C4501500190B01 /* bg */,);
 			name = AlertTypesSettingsView.strings;
 			sourceTree = "<group>";
 		};
@@ -5294,7 +5338,8 @@
 				F8E4DCEB2805F7FC007CF822 /* da */,
 				F8D094F92846BDD60087FFEA /* uk */,
 				4166BFC828C3501500199980 /* el */,
-			);
+			
+				B6B6AA1528C4501500190B15 /* bg */,);
 			name = SpeakReading.strings;
 			sourceTree = "<group>";
 		};
@@ -5319,7 +5364,8 @@
 				F8E4DCE62805F7FC007CF822 /* da */,
 				F8D094F52846BDD60087FFEA /* uk */,
 				4166BFC328C3501500199980 /* el */,
-			);
+			
+				B6B6AA0A28C4501500190B0A /* bg */,);
 			name = HomeView.strings;
 			sourceTree = "<group>";
 		};
@@ -5344,7 +5390,8 @@
 				F8E4DCE22805F7FB007CF822 /* da */,
 				F8D094F12846BDD60087FFEA /* uk */,
 				4166BFBF28C3501500199980 /* el */,
-			);
+			
+				B6B6AA0628C4501500190B06 /* bg */,);
 			name = CalibrationRequest.strings;
 			sourceTree = "<group>";
 		};
@@ -5368,7 +5415,8 @@
 				4798BAD427BA78C3002583BC /* tr */,
 				F8E4DCE72805F7FC007CF822 /* da */,
 				4166BFC428C3501500199980 /* el */,
-			);
+			
+				B6B6AA0F28C4501500190B0F /* bg */,);
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
@@ -5393,7 +5441,8 @@
 				F8E4DCE32805F7FB007CF822 /* da */,
 				F8D094F22846BDD60087FFEA /* uk */,
 				4166BFC028C3501500199980 /* el */,
-			);
+			
+				B6B6AA0728C4501500190B07 /* bg */,);
 			name = Common.strings;
 			sourceTree = "<group>";
 		};
@@ -5418,7 +5467,8 @@
 				F8E4DCE52805F7FC007CF822 /* da */,
 				F8D094F42846BDD60087FFEA /* uk */,
 				4166BFC228C3501500199980 /* el */,
-			);
+			
+				B6B6AA0928C4501500190B09 /* bg */,);
 			name = ErrorMessages.strings;
 			sourceTree = "<group>";
 		};
@@ -5443,7 +5493,8 @@
 				F8E4DCEA2805F7FC007CF822 /* da */,
 				F8D094F82846BDD60087FFEA /* uk */,
 				4166BFC728C3501500199980 /* el */,
-			);
+			
+				B6B6AA1328C4501500190B13 /* bg */,);
 			name = SettingsViews.strings;
 			sourceTree = "<group>";
 		};
@@ -5468,7 +5519,8 @@
 				F8E4DCEF2805F7FD007CF822 /* da */,
 				F8D094FD2846BDD70087FFEA /* uk */,
 				4166BFCC28C3501500199980 /* el */,
-			);
+			
+				B6B6AA1428C4501500190B14 /* bg */,);
 			name = Snooze.strings;
 			sourceTree = "<group>";
 		};
@@ -5493,7 +5545,8 @@
 				F8E4DCE42805F7FC007CF822 /* da */,
 				F8D094F32846BDD60087FFEA /* uk */,
 				4166BFC128C3501500199980 /* el */,
-			);
+			
+				B6B6AA0828C4501500190B08 /* bg */,);
 			name = DexcomShareTestResult.strings;
 			sourceTree = "<group>";
 		};
@@ -5512,7 +5565,7 @@
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
-				DEVELOPMENT_TEAM = "$(XDRIP_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 73WYQ6P9NQ;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "xDrip Widget/Info.plist";
@@ -5548,7 +5601,7 @@
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
-				DEVELOPMENT_TEAM = "$(XDRIP_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 73WYQ6P9NQ;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "xDrip Widget/Info.plist";
@@ -5582,7 +5635,7 @@
 				CODE_SIGN_ENTITLEMENTS = "xDrip Watch Complication Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
-				DEVELOPMENT_TEAM = "$(XDRIP_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 73WYQ6P9NQ;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "xDrip Watch Complication/Info.plist";
@@ -5619,7 +5672,7 @@
 				CODE_SIGN_ENTITLEMENTS = "xDrip Watch Complication Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
-				DEVELOPMENT_TEAM = "$(XDRIP_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 73WYQ6P9NQ;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "xDrip Watch Complication/Info.plist";
@@ -5656,7 +5709,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				DEVELOPMENT_ASSET_PATHS = "\"xDrip Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = "$(XDRIP_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 73WYQ6P9NQ;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -5696,7 +5749,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				DEVELOPMENT_ASSET_PATHS = "\"xDrip Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = "$(XDRIP_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 73WYQ6P9NQ;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -5734,7 +5787,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
-				DEVELOPMENT_TEAM = "$(XDRIP_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 73WYQ6P9NQ;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "xDrip Notification Context Extension/Info.plist";
@@ -5769,7 +5822,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
-				DEVELOPMENT_TEAM = "$(XDRIP_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 73WYQ6P9NQ;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "xDrip Notification Context Extension/Info.plist";
@@ -5934,7 +5987,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = "$(XDRIP_CODE_SIGN_STYLE)";
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
-				DEVELOPMENT_TEAM = "$(XDRIP_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 73WYQ6P9NQ;
 				INFOPLIST_FILE = "xdrip/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5963,7 +6016,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = "$(XDRIP_CODE_SIGN_STYLE)";
 				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
-				DEVELOPMENT_TEAM = "$(XDRIP_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 73WYQ6P9NQ;
 				INFOPLIST_FILE = "xdrip/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (

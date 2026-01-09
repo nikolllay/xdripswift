@@ -1,0 +1,15 @@
+"high" = "висока";
+"low" = "ниска";
+"currentglucose" = "Текущата ви кръвна захар е";
+"trendnoncomputable" = "неизчислима";
+"trenddoubledown" = "драматично надолу";
+"trendsingledown" = "значително надолу";
+"trendfortyfivedown" = "надолу";
+"trendflat" = "стабилна";
+"trendfortyfiveup" = "нагоре";
+"trendsingleup" = "значително нагоре";
+"trenddoubleup" = "драматично нагоре";
+"currenttrend" = "Тенденцията е";
+"deltanoncomputable" = "неизчислима";
+"currentdelta" = "Разликата от последното показание е";
+

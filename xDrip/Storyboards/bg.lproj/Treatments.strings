@@ -1,0 +1,19 @@
+"treatments_title" = "Лечения";
+"treatments_new_button" = "Ново";
+"treatments_new_entry" = "Ново лечение";
+"treatments_carbs_with_unit" = "Въглехидрати (г)";
+"treatments_insulin_with_unit" = "Инсулин (Е)";
+"treatments_exercise_with_unit" = "Упражнение (мин)";
+"treatments_carbs_unit" = "г";
+"treatments_insulin_unit" = "Е";
+"treatments_exercise_unit" = "мин";
+"treatments_carbs" = "Въглехидрати";
+"treatments_insulin" = "Болус";
+"treatments_exercise" = "Упражнение";
+"treatments_bgcheck" = "Проверка на КЗ";
+"treatments_question_mark" = "?";
+"treatments_success" = "Успех";
+"treatments_sync_complete" = "Синхронизацията завършена.";
+"treatments_filterTreatmentsLabel" = "Филтър";
+"treatments_cannotStoreFutureBGCheck" = "Не можете да съхраните проверка на КЗ в бъдещето.\n\nТя ще бъде съхранена в текущото време.";
+

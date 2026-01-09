@@ -1,0 +1,5 @@
+"receivedDataIsNil" = "Не са получени данни от OOP уеб сървъра";
+"oOPWebServerError" = "Грешка на OOP уеб сървъра: ";
+"libreUSNotSupported" = "Libre US не се поддържа";
+"libreSensorNotReady" = "Libre сензорът не е в статус готов";
+

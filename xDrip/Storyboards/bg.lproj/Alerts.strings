@@ -1,0 +1,21 @@
+"alertsettingsview_screentitle" = "Аларми";
+"alertssettingsview_screentitle" = "Редактиране на аларма";
+"alerts_highalerttitle" = "Аларма за висока стойност";
+"alerts_veryhighalerttitle" = "Аларма за много висока стойност";
+"alerts_lowalerttitle" = "Аларма за ниска стойност";
+"alerts_verylowalerttitle" = "Аларма за много ниска стойност";
+"alerts_snooze" = "Отлагане";
+"alerts_select_snooze_time" = "Изберете време за отлагане";
+"alerts_missedreadingalerttitle" = "Пропуснати показания";
+"alerts_calibrationneeded" = "Напомняне за калибриране";
+"alerts_batterylow" = "Ниска батерия на предавателя";
+"alertstart" = "Прилагане от";
+"alertvalue" = "Стойност";
+"alerttype" = "Вид аларма";
+"changealertvalue" = "Промяна на стойността на алармата";
+"confirmdeletionalert" = "Изтриване на алармата?";
+"alerts_fastdrop" = "Аларма за бърз спад";
+"alerts_fastrise" = "Аларма за бързо покачване";
+"alertWhenBelowValue" = "Само когато е под";
+"alertWhenAboveValue" = "Само когато е над";
+
