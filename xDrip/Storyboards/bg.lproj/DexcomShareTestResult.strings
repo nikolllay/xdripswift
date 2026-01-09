@@ -1,0 +1,10 @@
+"dexcomsharetestresult_verificationsuccessfulalerttitle" = "Проверката успешна";
+"dexcomsharetestresult_verificationsuccessfulalertbody" = "Вашият Dexcom Share акаунт беше потвърден успешно";
+"dexcomsharetestresult_verificationerroralerttitle" = "Грешка при проверката";
+"dexcomsharetestresult_SSO_AuthenticateMaxAttemptsExceeed" = "Превишен максимален брой опити за влизане. Изчакайте 10 минути и опитайте отново.";
+"dexcomsharetestresult_uploadErrorWarning" = "Грешка при качване в Dexcom Share";
+"dexcomsharetestresult_monitored_receiver_sn_doesnotmatch" = "Серийният номер на Dexcom Share не съвпада със серийния номер за този акаунт. Проверете серийния номер в настройките.";
+"dexcomsharetestresult_monitored_receiver_not_assigned_1" = "Изглежда, че ID на предавателя или серийният номер";
+"dexcomsharetestresult_monitored_receiver_not_assigned_2" = "не е присвоен на";
+"dexcomsharetestresult_monitored_receiver_not_assigned_3" = "Използвайте официалното приложение Dexcom, за да регистрирате предавателя (G5) или Share приемник (G4)\r\n\r\nВъзможно е да използвате грешен URL адрес, проверете настройката 'Използване на US URL?'";
+

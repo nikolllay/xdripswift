@@ -1,0 +1,17 @@
+"alerttypessettingsview_screentitle" = "Видове аларми";
+"alerttypesettingsview_screentitle" = "Редактиране на вид аларма";
+"alerttypesettingsview_name" = "Име";
+"alerttypesettingsview_enabled" = "Активирана";
+"alerttypesettingsview_vibrate" = "Вибрация";
+"alerttypesettingsview_snoozevianotification" = "Отлагане чрез известие";
+"alerttypesettingsview_defaultsnoozeperiod" = "Време за отлагане по подразбиране (мин)";
+"alerttypesettingsview_overridemute" = "Игнориране на безшумен режим";
+"alerttypesettingsview_sound" = "Звук";
+"alerttypesettingsview_defaultiossound" = "iOS звук";
+"alerttypesettingsview_givename" = "Име на алармата";
+"alerttypesettingsview_givesnoozeperiod" = "Време за отлагане в минути";
+"alerttypesettingsview_picksoundname" = "Име на звука";
+"alertTypeNoSound" = "Без звук";
+"alerttypenamealreadyexistsmessages" = "Вид аларма с това име вече съществува. Използвайте друго име";
+"confirmdeletionalerttype" = "Изтриване на вид аларма: ";
+

@@ -1,0 +1,13 @@
+"glucoseReadingsTitle" = "Показания на глюкозата";
+"glucoseReadingTitle" = "Показание на глюкозата";
+"date" = "Дата";
+"noReadingsToShow" = "Няма показания за показване...";
+"generalSectionHeader" = "Общи";
+"internalDataSectionHeader" = "Вътрешни данни";
+"timestamp" = "Времева марка";
+"calculatedValue" = "Изчислена стойност";
+"slopeArrow" = "Стрелка за тенденция";
+"id" = "ID";
+"deviceName" = "Устройство";
+"rawData" = "Необработени данни";
+

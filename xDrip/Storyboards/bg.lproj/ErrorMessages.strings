@@ -1,0 +1,5 @@
+"error_message_Dexcom_transmitter_id_invalid_characters" = "ID на предавателя трябва да съдържа само символи a-z, A-Z или 0-9";
+"error_message_transmitter_id_should_have_length_6" = "ID на предавателя трябва да е с дължина 6 символа";
+"error_message_transmitter_id_should_have_length_5" = "ID на предавателя трябва да е с дължина 5 символа";
+"TransmitterIdBluCon" = "ID на предавателя трябва да е последните 5 цифри от BluCon ID, написано отстрани на устройството.\n\nПример: Ако BluCon ID е BLU1742B01007, ID на предавателя, който трябва да използвате, е 01007.";
+

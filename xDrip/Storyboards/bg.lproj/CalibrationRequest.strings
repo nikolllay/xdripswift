@@ -1,0 +1,7 @@
+"enter_calibration_value" = "Въведете стойност за калибриране";
+"calibration_title" = "Калибриране";
+"calibration_notification_title" = "Калибриране";
+"calibration_notification_body" = "Натиснете известието, за да калибрирате";
+"singlePointCalibration" = "Стандартно";
+"multiPointCalibration" = "Многоточково";
+
