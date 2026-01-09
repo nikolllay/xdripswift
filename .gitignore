@@ -122,3 +122,9 @@ xdripswift.wiki/
 commit.txt
 
 *.bak
+
+# Personal entitlements with Team ID
+*.entitlements
+
+# JetBrains IDE
+.idea/
