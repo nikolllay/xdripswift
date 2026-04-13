@@ -1,42 +1,42 @@
 
 /* Class = "UILabel"; text = "Basal Rate"; ObjectID = "00g-0C-0EK"; */
-"00g-0C-0EK.text" = "Базална доза";
+"00g-0C-0EK.text" = "Basal Rate";
 
 /* Class = "UIViewController"; title = "Treatments Scene"; ObjectID = "01q-Jv-AjA"; */
-"01q-Jv-AjA.title" = "Екран за лечения";
+"01q-Jv-AjA.title" = "Treatments Scene";
 
 /* Class = "UILabel"; text = "Reservoir"; ObjectID = "01u-AC-iAi"; */
-"01u-AC-iAi.text" = "Резервоар";
+"01u-AC-iAi.text" = "Reservoir";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "0QS-QO-ffs"; */
-"0QS-QO-ffs.text" = "Заглавие";
+"0QS-QO-ffs.text" = "Title";
 
 /* Class = "UILabel"; text = "8"; ObjectID = "0na-qZ-kDB"; */
 "0na-qZ-kDB.text" = "8";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "0oo-Gz-k2G"; */
-"0oo-Gz-k2G.normalTitle" = "Отказ";
+"0oo-Gz-k2G.normalTitle" = "Cancel";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "1DE-2P-Qfh"; */
-"1DE-2P-Qfh.title" = "Заглавие";
+"1DE-2P-Qfh.title" = "Title";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "2S3-BW-gHk"; */
 "2S3-BW-gHk.text" = "-";
 
 /* Class = "UILabel"; text = "Battery"; ObjectID = "2SR-LT-Tjm"; */
-"2SR-LT-Tjm.text" = "Батерия";
+"2SR-LT-Tjm.text" = "Battery";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "2fU-HY-PwD"; */
-"2fU-HY-PwD.text" = "Детайли";
+"2fU-HY-PwD.text" = "Detail";
 
 /* Class = "UILabel"; text = "- U"; ObjectID = "2u5-Ow-wh6"; */
-"2u5-Ow-wh6.text" = "- Е";
+"2u5-Ow-wh6.text" = "- U";
 
 /* Class = "UILabel"; text = " mins ago"; ObjectID = "3dM-a1-kXd"; */
-"3dM-a1-kXd.text" = " мин преди";
+"3dM-a1-kXd.text" = " mins ago";
 
 /* Class = "UIButton"; normalTitle = "Waiting..."; ObjectID = "3iM-CG-kDl"; */
-"3iM-CG-kDl.normalTitle" = "Изчакване...";
+"3iM-CG-kDl.normalTitle" = "Waiting...";
 
 /* Class = "UITextField"; placeholder = "0"; ObjectID = "3jm-to-PhE"; */
 "3jm-to-PhE.placeholder" = "0";
@@ -48,13 +48,13 @@
 "4LK-sw-cBS.text" = "-";
 
 /* Class = "UILabel"; text = "Data Source"; ObjectID = "4Ve-eo-sIm"; */
-"4Ve-eo-sIm.text" = "Източник на данни";
+"4Ve-eo-sIm.text" = "Data Source";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "5ta-po-Bsd"; */
-"5ta-po-Bsd.text" = "Детайли";
+"5ta-po-Bsd.text" = "Detail";
 
 /* Class = "UILabel"; text = "In Range"; ObjectID = "63h-Q9-PbK"; */
-"63h-Q9-PbK.text" = "В обхват";
+"63h-Q9-PbK.text" = "In Range";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "6JK-yH-Ykh"; */
 "6JK-yH-Ykh.text" = "-";
@@ -63,46 +63,46 @@
 "6oV-Ax-LGm.text" = "CV";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "7NI-o7-nWK"; */
-"7NI-o7-nWK.text" = "Етикет";
+"7NI-o7-nWK.text" = "Label";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "7Wo-wd-80o"; */
 "7Wo-wd-80o.text" = "-";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "7vO-nL-nIV"; */
-"7vO-nL-nIV.text" = "Заглавие";
+"7vO-nL-nIV.text" = "Title";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "8Bd-7p-ZRp"; */
-"8Bd-7p-ZRp.text" = "Етикет";
+"8Bd-7p-ZRp.text" = "Label";
 
 /* Class = "UILabel"; text = "High"; ObjectID = "8O4-Y1-Qa5"; */
-"8O4-Y1-Qa5.text" = "Висока";
+"8O4-Y1-Qa5.text" = "High";
 
 /* Class = "UILabel"; text = "-m"; ObjectID = "8RJ-QC-aTl"; */
-"8RJ-QC-aTl.text" = "-м";
+"8RJ-QC-aTl.text" = "-m";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "8jK-jB-QOG"; */
-"8jK-jB-QOG.text" = "Етикет";
+"8jK-jB-QOG.text" = "Label";
 
 /* Class = "UISegmentedControl"; 9LS-Vp-uGd.segmentTitles[0] = "3h"; ObjectID = "9LS-Vp-uGd"; */
-"9LS-Vp-uGd.segmentTitles[0]" = "3ч";
+"9LS-Vp-uGd.segmentTitles[0]" = "3h";
 
 /* Class = "UISegmentedControl"; 9LS-Vp-uGd.segmentTitles[1] = "6h"; ObjectID = "9LS-Vp-uGd"; */
-"9LS-Vp-uGd.segmentTitles[1]" = "6ч";
+"9LS-Vp-uGd.segmentTitles[1]" = "6h";
 
 /* Class = "UISegmentedControl"; 9LS-Vp-uGd.segmentTitles[2] = "12h"; ObjectID = "9LS-Vp-uGd"; */
-"9LS-Vp-uGd.segmentTitles[2]" = "12ч";
+"9LS-Vp-uGd.segmentTitles[2]" = "12h";
 
 /* Class = "UISegmentedControl"; 9LS-Vp-uGd.segmentTitles[3] = "24h"; ObjectID = "9LS-Vp-uGd"; */
-"9LS-Vp-uGd.segmentTitles[3]" = "24ч";
+"9LS-Vp-uGd.segmentTitles[3]" = "24h";
 
 /* Class = "UILabel"; text = "HbA1c"; ObjectID = "9Ud-mR-3u4"; */
 "9Ud-mR-3u4.text" = "HbA1c";
 
 /* Class = "UILabel"; text = "Exercise"; ObjectID = "9tx-02-GXf"; */
-"9tx-02-GXf.text" = "Упражнение";
+"9tx-02-GXf.text" = "Exercise";
 
 /* Class = "UILabel"; text = "g"; ObjectID = "ACN-iY-zpP"; */
-"ACN-iY-zpP.text" = "г";
+"ACN-iY-zpP.text" = "g";
 
 /* Class = "UITextField"; placeholder = "0.0"; ObjectID = "AcX-F3-OgL"; */
 "AcX-F3-OgL.placeholder" = "0.0";
@@ -111,76 +111,76 @@
 "AqZ-Ft-h15.text" = "CAGE";
 
 /* Class = "UILabel"; text = "Low "; ObjectID = "B0Q-ux-IHf"; */
-"B0Q-ux-IHf.text" = "Ниска ";
+"B0Q-ux-IHf.text" = "Low ";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "D3W-pP-Yk9"; */
-"D3W-pP-Yk9.title" = "Заглавие";
+"D3W-pP-Yk9.title" = "Title";
 
 /* Class = "UILabel"; text = "mins ago"; ObjectID = "DBq-qi-hkZ"; */
-"DBq-qi-hkZ.text" = "мин преди";
+"DBq-qi-hkZ.text" = "mins ago";
 
 /* Class = "UITabBarItem"; title = "Treatments"; ObjectID = "EM7-TR-8Pt"; */
-"EM7-TR-8Pt.title" = "Лечения";
+"EM7-TR-8Pt.title" = "Treatments";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "EbR-T4-LIg"; */
 "EbR-T4-LIg.text" = "-";
 
 /* Class = "UILabel"; text = "(20 min)"; ObjectID = "Eif-9h-H3i"; */
-"Eif-9h-H3i.text" = "(20 мин)";
+"Eif-9h-H3i.text" = "(20 min)";
 
 /* Class = "UIBarButtonItem"; title = "I"; ObjectID = "Fis-6U-di6"; */
 "Fis-6U-di6.title" = "I";
 
 /* Class = "UILabel"; text = "Filter:"; ObjectID = "GAt-uS-uta"; */
-"GAt-uS-uta.text" = "Филтър:";
+"GAt-uS-uta.text" = "Filter:";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "GZF-be-edT"; */
 "GZF-be-edT.text" = "-";
 
 /* Class = "UILabel"; text = "BG Check"; ObjectID = "Gju-y6-ier"; */
-"Gju-y6-ier.text" = "Проверка на КЗ";
+"Gju-y6-ier.text" = "BG Check";
 
-/* Class = "UIButton"; configuration.title = " "; ObjectID = "H0N-EK-5JX"; */
-"H0N-EK-5JX.configuration.title" = " ";
+/* Class = "UIButton"; configuration.title = " "; ObjectID = "H0N-EK-5JX"; */
+"H0N-EK-5JX.configuration.title" = " ";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "H0N-EK-5JX"; */
-"H0N-EK-5JX.normalTitle" = "Бутон";
+"H0N-EK-5JX.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Hay-Q1-7fh"; */
-"Hay-Q1-7fh.text" = "Етикет";
+"Hay-Q1-7fh.text" = "Label";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "I1p-t1-Yls"; */
-"I1p-t1-Yls.text" = "Подзаглавие";
+"I1p-t1-Yls.text" = "Subtitle";
 
 /* Class = "UILabel"; text = "2"; ObjectID = "IZJ-19-l30"; */
 "IZJ-19-l30.text" = "2";
 
 /* Class = "UIBarButtonItem"; title = "BgReadings"; ObjectID = "JXD-eR-ASP"; */
-"JXD-eR-ASP.title" = "Показания";
+"JXD-eR-ASP.title" = "BgReadings";
 
 /* Class = "UITabBarItem"; title = "Treatments"; ObjectID = "Jgh-Nb-wg6"; */
-"Jgh-Nb-wg6.title" = "Лечения";
+"Jgh-Nb-wg6.title" = "Treatments";
 
 /* Class = "UILabel"; text = "00:00"; ObjectID = "JuE-mg-S0t"; */
 "JuE-mg-S0t.text" = "00:00";
 
 /* Class = "UILabel"; text = "Entered By"; ObjectID = "K1p-yC-Sdl"; */
-"K1p-yC-Sdl.text" = "Въведено от";
+"K1p-yC-Sdl.text" = "Entered By";
 
 /* Class = "UILabel"; text = "mg/dL"; ObjectID = "LHe-pP-hD1"; */
 "LHe-pP-hD1.text" = "mg/dL";
 
 /* Class = "UILabel"; text = "Snooze Alarms"; ObjectID = "LzM-bz-Cnv"; */
-"LzM-bz-Cnv.text" = "Отлагане на аларми";
+"LzM-bz-Cnv.text" = "Snooze Alarms";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "Mfz-72-6g0"; */
-"Mfz-72-6g0.text" = "Детайли";
+"Mfz-72-6g0.text" = "Detail";
 
 /* Class = "UILabel"; text = "(-)"; ObjectID = "Mnc-aW-RFU"; */
 "Mnc-aW-RFU.text" = "(-)";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "N1U-VA-CRw"; */
-"N1U-VA-CRw.text" = "Детайли";
+"N1U-VA-CRw.text" = "Detail";
 
 /* Class = "UIButton"; normalTitle = "OK"; ObjectID = "N9b-EE-lZm"; */
 "N9b-EE-lZm.normalTitle" = "OK";
@@ -189,10 +189,10 @@
 "Ncy-6l-nO2.text" = "(-)";
 
 /* Class = "UILabel"; text = "- U/hr"; ObjectID = "O18-K8-DZW"; */
-"O18-K8-DZW.text" = "- Е/ч";
+"O18-K8-DZW.text" = "- U/hr";
 
 /* Class = "UILabel"; text = "- U"; ObjectID = "O9w-xa-Fpd"; */
-"O9w-xa-Fpd.text" = "- Е";
+"O9w-xa-Fpd.text" = "- U";
 
 /* Class = "UILabel"; text = "- - -"; ObjectID = "On3-dy-RgB"; */
 "On3-dy-RgB.text" = "- - -";
@@ -201,43 +201,43 @@
 "PZI-Ln-kfh.text" = "CV";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "Pom-Rr-Zcn"; */
-"Pom-Rr-Zcn.text" = "Заглавие";
+"Pom-Rr-Zcn.text" = "Title";
 
 /* Class = "UILabel"; text = "Snooze All"; ObjectID = "QIL-9V-nnK"; */
-"QIL-9V-nnK.text" = "Отлагане на всички";
+"QIL-9V-nnK.text" = "Snooze All";
 
 /* Class = "UILabel"; text = "Treatments"; ObjectID = "Qfk-oJ-3PR"; */
-"Qfk-oJ-3PR.text" = "Лечения";
+"Qfk-oJ-3PR.text" = "Treatments";
 
 /* Class = "UIViewController"; title = "Treatments Insert Scene"; ObjectID = "QgE-Gq-57r"; */
-"QgE-Gq-57r.title" = "Екран за добавяне на лечение";
+"QgE-Gq-57r.title" = "Treatments Insert Scene";
 
 /* Class = "UILabel"; text = "---"; ObjectID = "Qlg-PI-kEX"; */
 "Qlg-PI-kEX.text" = "---";
 
 /* Class = "UILabel"; text = "1d2h"; ObjectID = "RjD-g3-buh"; */
-"RjD-g3-buh.text" = "1д2ч";
+"RjD-g3-buh.text" = "1d2h";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "S45-Yf-BHe"; */
-"S45-Yf-BHe.text" = "Заглавие";
+"S45-Yf-BHe.text" = "Title";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "SQk-hK-fHN"; */
-"SQk-hK-fHN.text" = "Детайли";
+"SQk-hK-fHN.text" = "Detail";
 
 /* Class = "UILabel"; text = "U"; ObjectID = "Sb5-Wd-8Ra"; */
-"Sb5-Wd-8Ra.text" = "Е";
+"Sb5-Wd-8Ra.text" = "U";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "TOp-MQ-ekU"; */
-"TOp-MQ-ekU.normalTitle" = "Бутон";
+"TOp-MQ-ekU.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "Tpl-mr-dqb"; */
-"Tpl-mr-dqb.text" = "Детайли";
+"Tpl-mr-dqb.text" = "Detail";
 
 /* Class = "UILabel"; text = "12:34"; ObjectID = "Tqm-Qh-Jin"; */
 "Tqm-Qh-Jin.text" = "12:34";
 
 /* Class = "UILabel"; text = "Insulin"; ObjectID = "U6e-jp-cms"; */
-"U6e-jp-cms.text" = "Инсулин";
+"U6e-jp-cms.text" = "Insulin";
 
 /* Class = "UILabel"; text = "COB"; ObjectID = "VTt-wV-7Zg"; */
 "VTt-wV-7Zg.text" = "COB";
@@ -251,17 +251,17 @@
 /* Class = "UILabel"; text = "-"; ObjectID = "Vtm-Kh-9EP"; */
 "Vtm-Kh-9EP.text" = "-";
 
-/* Class = "UIButton"; configuration.title = " "; ObjectID = "WHF-BG-N8A"; */
-"WHF-BG-N8A.configuration.title" = " ";
+/* Class = "UIButton"; configuration.title = " "; ObjectID = "WHF-BG-N8A"; */
+"WHF-BG-N8A.configuration.title" = " ";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "WHF-BG-N8A"; */
-"WHF-BG-N8A.normalTitle" = "Бутон";
+"WHF-BG-N8A.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = " 24 hours"; ObjectID = "WIO-Oh-Z4T"; */
-"WIO-Oh-Z4T.text" = " 24 часа";
+"WIO-Oh-Z4T.text" = " 24 hours";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "WNo-rU-sXx"; */
-"WNo-rU-sXx.text" = "Заглавие";
+"WNo-rU-sXx.text" = "Title";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "WOB-NT-BMb"; */
 "WOB-NT-BMb.text" = "-";
@@ -270,178 +270,178 @@
 "We3-bN-ffR.text" = "---";
 
 /* Class = "UIButton"; normalTitle = "Connect"; ObjectID = "WtR-0P-RyL"; */
-"WtR-0P-RyL.normalTitle" = "Свързване";
+"WtR-0P-RyL.normalTitle" = "Connect";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "XMn-Sj-Tgc"; */
-"XMn-Sj-Tgc.normalTitle" = "Бутон";
+"XMn-Sj-Tgc.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = "(-)"; ObjectID = "Xlz-6g-zzD"; */
 "Xlz-6g-zzD.text" = "(-)";
 
 /* Class = "UISegmentedControl"; Xuy-hn-ozf.segmentTitles[0] = "Today"; ObjectID = "Xuy-hn-ozf"; */
-"Xuy-hn-ozf.segmentTitles[0]" = "Днес";
+"Xuy-hn-ozf.segmentTitles[0]" = "Today";
 
 /* Class = "UISegmentedControl"; Xuy-hn-ozf.segmentTitles[1] = "24h"; ObjectID = "Xuy-hn-ozf"; */
-"Xuy-hn-ozf.segmentTitles[1]" = "24ч";
+"Xuy-hn-ozf.segmentTitles[1]" = "24h";
 
 /* Class = "UISegmentedControl"; Xuy-hn-ozf.segmentTitles[2] = "7d"; ObjectID = "Xuy-hn-ozf"; */
-"Xuy-hn-ozf.segmentTitles[2]" = "7д";
+"Xuy-hn-ozf.segmentTitles[2]" = "7d";
 
 /* Class = "UISegmentedControl"; Xuy-hn-ozf.segmentTitles[3] = "30d"; ObjectID = "Xuy-hn-ozf"; */
-"Xuy-hn-ozf.segmentTitles[3]" = "30д";
+"Xuy-hn-ozf.segmentTitles[3]" = "30d";
 
 /* Class = "UISegmentedControl"; Xuy-hn-ozf.segmentTitles[4] = "90d"; ObjectID = "Xuy-hn-ozf"; */
-"Xuy-hn-ozf.segmentTitles[4]" = "90д";
+"Xuy-hn-ozf.segmentTitles[4]" = "90d";
 
 /* Class = "UILabel"; text = "mins"; ObjectID = "Xyz-4w-lz5"; */
-"Xyz-4w-lz5.text" = "мин";
+"Xyz-4w-lz5.text" = "mins";
 
 /* Class = "UILabel"; text = "(-)"; ObjectID = "YDf-Np-c61"; */
 "YDf-Np-c61.text" = "(-)";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "YQZ-eK-OoJ"; */
-"YQZ-eK-OoJ.title" = "Заглавие";
+"YQZ-eK-OoJ.title" = "Title";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "Z96-ov-isg"; */
-"Z96-ov-isg.text" = "Детайли";
+"Z96-ov-isg.text" = "Detail";
 
 /* Class = "UIBarButtonItem"; title = "Sensor"; ObjectID = "ZIM-Wf-bUy"; */
-"ZIM-Wf-bUy.title" = "Сензор";
+"ZIM-Wf-bUy.title" = "Sensor";
 
 /* Class = "UILabel"; text = "HbA1c"; ObjectID = "ZcS-GP-SLj"; */
 "ZcS-GP-SLj.text" = "HbA1c";
 
 /* Class = "UITabBarItem"; title = "Home"; ObjectID = "acW-dT-cKf"; */
-"acW-dT-cKf.title" = "Начало";
+"acW-dT-cKf.title" = "Home";
 
 /* Class = "UILabel"; text = "Insulin"; ObjectID = "agq-m8-HZ9"; */
-"agq-m8-HZ9.text" = "Инсулин";
+"agq-m8-HZ9.text" = "Insulin";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "apa-6w-gic"; */
 "apa-6w-gic.text" = "-";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "b1J-rJ-H3K"; */
-"b1J-rJ-H3K.normalTitle" = "Отказ";
+"b1J-rJ-H3K.normalTitle" = "Cancel";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "bT9-HM-Wcp"; */
-"bT9-HM-Wcp.text" = "Етикет";
+"bT9-HM-Wcp.text" = "Label";
 
 /* Class = "UILabel"; text = "High"; ObjectID = "bUK-pC-4bd"; */
-"bUK-pC-4bd.text" = "Висока";
+"bUK-pC-4bd.text" = "High";
 
 /* Class = "UILabel"; text = "Uploader/App"; ObjectID = "bUZ-rm-V8M"; */
-"bUZ-rm-V8M.text" = "Качване/Приложение";
+"bUZ-rm-V8M.text" = "Uploader/App";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "c4h-5z-5mU"; */
-"c4h-5z-5mU.text" = "Заглавие";
+"c4h-5z-5mU.text" = "Title";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "cFe-Nd-8MW"; */
-"cFe-Nd-8MW.text" = "Етикет";
+"cFe-Nd-8MW.text" = "Label";
 
 /* Class = "UITabBarItem"; title = "Settings"; ObjectID = "cPa-gy-q4n"; */
-"cPa-gy-q4n.title" = "Настройки";
+"cPa-gy-q4n.title" = "Settings";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "cVj-Us-dOZ"; */
-"cVj-Us-dOZ.text" = "Детайли";
+"cVj-Us-dOZ.text" = "Detail";
 
 /* Class = "UILabel"; text = "IOB"; ObjectID = "crT-lo-zXT"; */
 "crT-lo-zXT.text" = "IOB";
 
 /* Class = "UIViewController"; title = "M5 Stack Settings View Controller"; ObjectID = "d2Q-Tq-3zC"; */
-"d2Q-Tq-3zC.title" = "Настройки на M5 Stack";
+"d2Q-Tq-3zC.title" = "M5 Stack Settings View Controller";
 
 /* Class = "UILabel"; text = "- %"; ObjectID = "doT-zV-4hv"; */
 "doT-zV-4hv.text" = "- %";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "ekz-vj-3BZ"; */
-"ekz-vj-3BZ.text" = "Заглавие";
+"ekz-vj-3BZ.text" = "Title";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "etA-fM-tGh"; */
-"etA-fM-tGh.title" = "Заглавие";
+"etA-fM-tGh.title" = "Title";
 
 /* Class = "UIBarButtonItem"; title = "Show/Hide"; ObjectID = "f26-wK-U2z"; */
-"f26-wK-U2z.title" = "Покажи/Скрий";
+"f26-wK-U2z.title" = "Show/Hide";
 
 /* Class = "UIBarButtonItem"; title = "Snooze"; ObjectID = "f3E-Tt-LBV"; */
-"f3E-Tt-LBV.title" = "Отлагане";
+"f3E-Tt-LBV.title" = "Snooze";
 
 /* Class = "UILabel"; text = "Friday 01/10/2021"; ObjectID = "fRg-Sl-fZq"; */
-"fRg-Sl-fZq.text" = "Петък 01/10/2021";
+"fRg-Sl-fZq.text" = "Friday 01/10/2021";
 
 /* Class = "UINavigationItem"; title = "Treatments"; ObjectID = "fUA-gv-91n"; */
-"fUA-gv-91n.title" = "Лечения";
+"fUA-gv-91n.title" = "Treatments";
 
 /* Class = "UILabel"; text = "Carbs"; ObjectID = "fvP-G8-Gxk"; */
-"fvP-G8-Gxk.text" = "Въглехидрати";
+"fvP-G8-Gxk.text" = "Carbs";
 
 /* Class = "UITextField"; placeholder = "0.0"; ObjectID = "ggq-1D-Pj6"; */
 "ggq-1D-Pj6.placeholder" = "0.0";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "goS-0m-pgb"; */
-"goS-0m-pgb.text" = "Заглавие";
+"goS-0m-pgb.text" = "Title";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "hfQ-Tt-xNH"; */
-"hfQ-Tt-xNH.text" = "Заглавие";
+"hfQ-Tt-xNH.text" = "Title";
 
 /* Class = "UILabel"; text = "- g"; ObjectID = "hic-Sj-6Kk"; */
-"hic-Sj-6Kk.text" = "- г";
+"hic-Sj-6Kk.text" = "- g";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "iIy-f4-6Ww"; */
-"iIy-f4-6Ww.text" = "Етикет";
+"iIy-f4-6Ww.text" = "Label";
 
 /* Class = "UILabel"; text = "mg/dL"; ObjectID = "iho-Ag-dJP"; */
 "iho-Ag-dJP.text" = "mg/dL";
 
 /* Class = "UILabel"; text = "In Range"; ObjectID = "juW-al-5FK"; */
-"juW-al-5FK.text" = "В обхват";
+"juW-al-5FK.text" = "In Range";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "jx2-oc-XfQ"; */
-"jx2-oc-XfQ.text" = "Заглавие";
+"jx2-oc-XfQ.text" = "Title";
 
 /* Class = "UITextField"; placeholder = "0"; ObjectID = "kl9-iM-MlH"; */
 "kl9-iM-MlH.placeholder" = "0";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "lBP-cK-gbT"; */
-"lBP-cK-gbT.title" = "Заглавие";
+"lBP-cK-gbT.title" = "Title";
 
 /* Class = "UILabel"; text = "Low "; ObjectID = "m51-lo-N0E"; */
-"m51-lo-N0E.text" = "Ниска ";
+"m51-lo-N0E.text" = "Low ";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "n2x-3q-js1"; */
 "n2x-3q-js1.text" = "-";
 
 /* Class = "UINavigationItem"; title = "New Entry"; ObjectID = "nDn-qs-kKp"; */
-"nDn-qs-kKp.title" = "Нов запис";
+"nDn-qs-kKp.title" = "New Entry";
 
 /* Class = "UILabel"; text = "Average"; ObjectID = "na4-pU-1Ik"; */
-"na4-pU-1Ik.text" = "Средно";
+"na4-pU-1Ik.text" = "Average";
 
 /* Class = "UILabel"; text = " / 14d12h"; ObjectID = "oCH-fb-w0S"; */
-"oCH-fb-w0S.text" = " / 14д12ч";
+"oCH-fb-w0S.text" = " / 14d12h";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "opM-WW-7cK"; */
 "opM-WW-7cK.text" = "-";
 
 /* Class = "UILabel"; text = "Average"; ObjectID = "pea-xE-Qc8"; */
-"pea-xE-Qc8.text" = "Средно";
+"pea-xE-Qc8.text" = "Average";
 
 /* Class = "UILabel"; text = "U/hr"; ObjectID = "qu6-ef-JQF"; */
-"qu6-ef-JQF.text" = "Е/ч";
+"qu6-ef-JQF.text" = "U/hr";
 
 /* Class = "UILabel"; text = "Statistics"; ObjectID = "qy5-ri-N84"; */
-"qy5-ri-N84.text" = "Статистика";
+"qy5-ri-N84.text" = "Statistics";
 
 /* Class = "UILabel"; text = "g"; ObjectID = "qyu-wZ-l4Q"; */
-"qyu-wZ-l4Q.text" = "г";
+"qyu-wZ-l4Q.text" = "g";
 
 /* Class = "UILabel"; text = "--:--"; ObjectID = "rSC-H3-vfk"; */
 "rSC-H3-vfk.text" = "--:--";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "raE-D9-ezV"; */
-"raE-D9-ezV.text" = "Детайли";
+"raE-D9-ezV.text" = "Detail";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "sBg-yb-0Iy"; */
-"sBg-yb-0Iy.text" = "Детайли";
+"sBg-yb-0Iy.text" = "Detail";
 
 /* Class = "UITextField"; placeholder = "0"; ObjectID = "saY-fP-EEW"; */
 "saY-fP-EEW.placeholder" = "0";
@@ -450,16 +450,16 @@
 "sgT-p5-hUt.title" = "Bluetooth";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "skm-we-lQ3"; */
-"skm-we-lQ3.text" = "Детайли";
+"skm-we-lQ3.text" = "Detail";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "tIz-Hj-yxH"; */
-"tIz-Hj-yxH.text" = "Заглавие";
+"tIz-Hj-yxH.text" = "Title";
 
 /* Class = "UIBarButtonItem"; title = "Calibrate"; ObjectID = "u4d-bZ-Kw8"; */
-"u4d-bZ-Kw8.title" = "Калибриране";
+"u4d-bZ-Kw8.title" = "Calibrate";
 
 /* Class = "UITabBarItem"; title = "Treatments"; ObjectID = "ucH-hI-fdv"; */
-"ucH-hI-fdv.title" = "Лечения";
+"ucH-hI-fdv.title" = "Treatments";
 
 /* Class = "UIButton"; normalTitle = "OK"; ObjectID = "uqL-UP-KZF"; */
 "uqL-UP-KZF.normalTitle" = "OK";
@@ -468,25 +468,25 @@
 "uyn-2k-K74.text" = "-";
 
 /* Class = "UILabel"; text = "Basal"; ObjectID = "vGV-U9-LAs"; */
-"vGV-U9-LAs.text" = "Базален";
+"vGV-U9-LAs.text" = "Basal";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "vbi-WE-Mvc"; */
-"vbi-WE-Mvc.text" = "Заглавие";
+"vbi-WE-Mvc.text" = "Title";
 
 /* Class = "UILabel"; text = "All alarms are silenced until 11:34"; ObjectID = "vyM-pm-YBR"; */
-"vyM-pm-YBR.text" = "Всички аларми са заглушени до 11:34";
+"vyM-pm-YBR.text" = "All alarms are silenced until 11:34";
 
 /* Class = "UIBarButtonItem"; title = "Lock"; ObjectID = "wfX-50-2w6"; */
-"wfX-50-2w6.title" = "Заключване";
+"wfX-50-2w6.title" = "Lock";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "wi3-X0-YuZ"; */
-"wi3-X0-YuZ.title" = "Заглавие";
+"wi3-X0-YuZ.title" = "Title";
 
 /* Class = "UILabel"; text = "mg/dL"; ObjectID = "xLM-wq-p7q"; */
 "xLM-wq-p7q.text" = "mg/dL";
 
 /* Class = "UIViewController"; title = "Landscape Value View Controller"; ObjectID = "xVF-Zb-ZOa"; */
-"xVF-Zb-ZOa.title" = "Пейзажен изглед";
+"xVF-Zb-ZOa.title" = "Landscape Value View Controller";
 
 /* Class = "UILabel"; text = "-%"; ObjectID = "zGt-Ik-S1p"; */
 "zGt-Ik-S1p.text" = "-%";
