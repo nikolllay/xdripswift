@@ -128,3 +128,7 @@ commit.txt
 
 # JetBrains IDE
 .idea/
+
+# Local-only xcconfig overrides (Team ID etc.)
+xDrip/xDripOverride.xcconfig
+xDripConfigOverride.xcconfig
