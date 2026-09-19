@@ -11,3 +11,16 @@
 "deviceName" = "Устройство";
 "rawData" = "Необработени данни";
 
+"adjustedValue" = "Коригирана стойност";
+"backfilled" = "Попълнено допълнително";
+"backfilledAtFooterFormat" = "Попълнено допълнително на %@";
+"bgRangeInRange" = "В обхват";
+"bgRangeNotUrgent" = "Не е спешно";
+"bgRangeUrgent" = "Спешно";
+"calibratedValue" = "Калибрирана стойност";
+"finalGlucose" = "Стойност на глюкозата";
+"finalValue" = "Крайна стойност";
+"glucoseRange" = "Обхват на глюкозата";
+"glucoseValueSectionHeader" = "Стойност на глюкозата";
+"rawValue" = "Необработена стойност";
+"smoothedValue" = "Изгладена стойност";

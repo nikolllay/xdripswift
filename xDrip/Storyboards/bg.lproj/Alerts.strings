@@ -19,3 +19,11 @@
 "alertWhenBelowValue" = "Само когато е под";
 "alertWhenAboveValue" = "Само когато е над";
 
+"alerts_notloopingalerttitle" = "Затвореният кръг не работи";
+"alerts_sensortransmitterfailure" = "Повреда на сензор/предавател";
+"alerts_snooze_fast_drop_title" = "Бърз спад";
+"alerts_snooze_fast_rise_title" = "Бързо покачване";
+"alerts_snooze_high_title" = "Висока";
+"alerts_snooze_low_title" = "Ниска";
+"alerts_snooze_very_high_title" = "Много висока";
+"alerts_snooze_very_low_title" = "Много ниска";

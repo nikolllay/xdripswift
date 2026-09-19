@@ -17,3 +17,10 @@
 "treatments_filterTreatmentsLabel" = "Филтър";
 "treatments_cannotStoreFutureBGCheck" = "Не можете да съхраните проверка на КЗ в бъдещето.\n\nТя ще бъде съхранена в текущото време.";
 
+"treatments_automaticBasal" = "Автоматичен базал";
+"treatments_basalInjection" = "Базал (инжекция)";
+"treatments_basalInjectionCopiedFooter" = "Количеството и видът на базала са копирани от предишния запис";
+"treatments_insulinDescription" = "Вид инсулин";
+"treatments_insulinDescriptionPlaceholder" = "напр. Tresiba";
+"treatments_invalidBasalInjectionValueMessage" = "Моля, въведете цял брой единици, по-голям от нула.";
+"treatments_treatmentType" = "Вид лечение";

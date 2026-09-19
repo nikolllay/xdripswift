@@ -5,3 +5,4 @@
 "singlePointCalibration" = "Стандартно";
 "multiPointCalibration" = "Многоточково";
 
+"previousCalibrationPrefillMessage" = "Предишното ви калибриране от %@ е попълнено предварително. Проверете го спрямо текущото показание на вашия глюкомер, преди да потвърдите.";
