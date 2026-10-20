@@ -54,6 +54,8 @@ enum BatteryHistoryCurrentReading: Equatable {
 /// Value-only device metadata used by the history screen. Keeping managed objects out of the view
 /// means the screen remains safe if its saved peripheral is removed while it is open.
 struct BatteryHistoryInformation: Equatable {
+    let isEnabled: Bool
+    let chartEndDate: Date
     let transmitterDescription: String
     let bluetoothName: String
     let transmitterLifetime: TimeInterval?
@@ -100,9 +102,10 @@ final class BatteryHistoryManager {
             } else {
                 sample = BatteryHistorySample(context: context)
                 sample.id = UniqueId.createEventId()
-                sample.blePeripheral = peripheral
             }
 
+            sample.blePeripheral = peripheral
+            sample.peripheralAddress = peripheral.address
             sample.observedAt = observedAt
             switch observation {
             case .percentage(let value, let producer):
@@ -148,7 +151,7 @@ final class BatteryHistoryManager {
                   !peripheral.isDeleted else { return }
             let request: NSFetchRequest<BatteryHistorySample> = BatteryHistorySample.fetchRequest()
             request.fetchLimit = 1
-            request.predicate = NSPredicate(format: "blePeripheral == %@", peripheral)
+            request.predicate = NSPredicate(format: "blePeripheral == %@ OR (blePeripheral == nil AND peripheralAddress ==[c] %@)", peripheral, peripheral.address)
             result = ((try? context.count(for: request)) ?? 0) > 0
         }
         return result
@@ -166,7 +169,7 @@ final class BatteryHistoryManager {
                 return
             }
             let request: NSFetchRequest<BatteryHistorySample> = BatteryHistorySample.fetchRequest()
-            request.predicate = NSPredicate(format: "blePeripheral == %@", peripheral)
+            request.predicate = NSPredicate(format: "blePeripheral == %@ OR (blePeripheral == nil AND peripheralAddress ==[c] %@)", peripheral, peripheral.address)
             request.sortDescriptors = [NSSortDescriptor(key: #keyPath(BatteryHistorySample.observedAt), ascending: true)]
             do {
                 let samples = try context.fetch(request)
@@ -196,8 +199,9 @@ final class BatteryHistoryManager {
         return result
     }
 
-    /// Builds the current device information without exposing managed objects to SwiftUI.
-    func information(peripheralObjectID: NSManagedObjectID, now: Date = Date()) -> BatteryHistoryInformation? {
+    /// Uses a shared end date for the chart and transmitter age without exposing managed objects to SwiftUI.
+    /// The caller supplies the latest loaded observation so no second history fetch is needed.
+    func information(peripheralObjectID: NSManagedObjectID, now: Date = Date(), lastObservation: Date? = nil) -> BatteryHistoryInformation? {
         var result: BatteryHistoryInformation?
         let context = coreDataManager.mainManagedObjectContext
         context.performAndWait {
@@ -205,6 +209,8 @@ final class BatteryHistoryManager {
                   let peripheral = try? context.existingObject(with: peripheralObjectID) as? BLEPeripheral,
                   !peripheral.isDeleted else { return }
 
+            // Enabled devices keep a current timeline even while Bluetooth is temporarily disconnected.
+            let chartEndDate = peripheral.shouldconnect ? now : (lastObservation ?? now)
             let transmitterDescription: String
             let transmitterLifetime: TimeInterval?
             let currentReading: BatteryHistoryCurrentReading?
@@ -216,7 +222,7 @@ final class BatteryHistoryManager {
                     bluetoothName: peripheral.name,
                     isAnubis: dexcomG5.isAnubis
                 ) ?? BluetoothPeripheralType.DexcomType.bluetoothPeripheralDisplayTitle
-                transmitterLifetime = dexcomG5.transmitterStartDate.map { max(0, now.timeIntervalSince($0)) }
+                transmitterLifetime = dexcomG5.transmitterStartDate.map { max(0, chartEndDate.timeIntervalSince($0)) }
                 currentReading = dexcomG5.voltageB > 0 ? .voltageB(rawValue: Int(dexcomG5.voltageB)) : nil
             } else if let dexcomG7 = peripheral.dexcomG7 {
                 transmitterDescription = DexcomProductNameResolver.title(
@@ -224,7 +230,7 @@ final class BatteryHistoryManager {
                     transmitterID: peripheral.transmitterId,
                     bluetoothName: peripheral.name
                 ) ?? BluetoothPeripheralType.DexcomG7Type.bluetoothPeripheralDisplayTitle
-                transmitterLifetime = dexcomG7.sensorStartDate.map { max(0, now.timeIntervalSince($0)) }
+                transmitterLifetime = dexcomG7.sensorStartDate.map { max(0, chartEndDate.timeIntervalSince($0)) }
                 currentReading = dexcomG7.voltageB > 0 ? .voltageB(rawValue: Int(dexcomG7.voltageB)) : nil
             } else if let m5Stack = peripheral.m5Stack {
                 transmitterDescription = m5Stack.bluetoothPeripheralType().bluetoothPeripheralDisplayTitle
@@ -255,6 +261,8 @@ final class BatteryHistoryManager {
             }
 
             result = BatteryHistoryInformation(
+                isEnabled: peripheral.shouldconnect,
+                chartEndDate: chartEndDate,
                 transmitterDescription: transmitterDescription,
                 bluetoothName: peripheral.name,
                 transmitterLifetime: transmitterLifetime,
@@ -267,7 +275,7 @@ final class BatteryHistoryManager {
     private func latestReading(peripheral: BLEPeripheral, context: NSManagedObjectContext) -> BatteryHistoryCurrentReading? {
         let request: NSFetchRequest<BatteryHistorySample> = BatteryHistorySample.fetchRequest()
         request.fetchLimit = 1
-        request.predicate = NSPredicate(format: "blePeripheral == %@", peripheral)
+        request.predicate = NSPredicate(format: "blePeripheral == %@ OR (blePeripheral == nil AND peripheralAddress ==[c] %@)", peripheral, peripheral.address)
         request.sortDescriptors = [NSSortDescriptor(key: #keyPath(BatteryHistorySample.observedAt), ascending: false)]
         guard let sample = try? request.execute().first,
               let kind = BatteryMeasurementKind(rawValue: sample.measurementKindRaw) else { return nil }
@@ -283,14 +291,14 @@ final class BatteryHistoryManager {
     private func percentageSample(peripheral: BLEPeripheral, observedAt: Date, context: NSManagedObjectContext) -> BatteryHistorySample? {
         let request: NSFetchRequest<BatteryHistorySample> = BatteryHistorySample.fetchRequest()
         request.fetchLimit = 1
-        request.predicate = NSPredicate(format: "blePeripheral == %@ AND measurementKindRaw == %d AND utcHourBucketStart == %@", peripheral, BatteryMeasurementKind.percentage.rawValue, Self.utcHourStart(for: observedAt) as NSDate)
+        request.predicate = NSPredicate(format: "(blePeripheral == %@ OR (blePeripheral == nil AND peripheralAddress ==[c] %@)) AND measurementKindRaw == %d AND utcHourBucketStart == %@", peripheral, peripheral.address, BatteryMeasurementKind.percentage.rawValue, Self.utcHourStart(for: observedAt) as NSDate)
         return try? request.execute().first
     }
 
     private func exactSample(peripheral: BLEPeripheral, observedAt: Date, context: NSManagedObjectContext) -> BatteryHistorySample? {
         let request: NSFetchRequest<BatteryHistorySample> = BatteryHistorySample.fetchRequest()
         request.fetchLimit = 1
-        request.predicate = NSPredicate(format: "blePeripheral == %@ AND observedAt == %@", peripheral, observedAt as NSDate)
+        request.predicate = NSPredicate(format: "(blePeripheral == %@ OR (blePeripheral == nil AND peripheralAddress ==[c] %@)) AND observedAt == %@", peripheral, peripheral.address, observedAt as NSDate)
         return try? request.execute().first
     }
 

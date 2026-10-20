@@ -51,9 +51,10 @@ import os
  Coexistence mode
 
  In coexistence mode the Dexcom app owns authentication. xDrip4iOS must not send J-PAKE packets,
- restore a primary shared key, or claim any Bluetooth channel. startCoexistenceObservation()
- first asks Core Bluetooth for the G7 peripheral that is already connected by the other app.
- Scanning is used only to notice later wake cycles and repeat that system-connected lookup.
+ restore a primary shared key, or claim any Bluetooth channel. Initial discovery uses
+ startCoexistenceObservation() to find the peripheral already connected by the other app.
+ Once the peripheral is known, keep a Core Bluetooth connection request pending between wakes.
+ Repeated scan discoveries are not guaranteed in the background and cannot drive reconnection.
  subscribeForCoexistenceAuthentication() subscribes only to Receive_Authentication. When
  handleCoexistenceAuthentication() observes the paired and authenticated status created by
  the other app, xDrip4iOS enables Write_Control and passively receives the shared data stream.
@@ -167,6 +168,9 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
     /// The validated four-digit applicator code. It is required only when xDrip4iOS owns primary
     /// authentication, but is retained here so configuration boundaries can enforce that rule.
     private var pairingCode: String?
+    private var watchCollectionObserver: NSObjectProtocol?
+    private var phoneWasPaused = false
+    private var phoneCollectionIsPaused: Bool { DirectWatchSettings.phoneIsPaused(transmitterId ?? "") }
 
     /// Owns the complete primary-only authentication state machine. The transport callbacks below
     /// are the only route by which it can touch Core Bluetooth or grant primary readiness.
@@ -279,9 +283,8 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
     /// processing must not apply an additional local calibration algorithm.
     private var webOOPEnabled = true
 
-    /// The latest trustworthy age received during this connection. Backfill remains raw until
-    /// this value is available because its packets contain relative rather than absolute time.
-    private var sensorAge: TimeInterval?
+    /// Fixed session reference for this connection; delayed backfill must not use receipt time.
+    private var sensorStartDate: Date?
 
     /// Keeps the six-reading stalled-stream safeguard on the Bluetooth queue. UserDefaults is only
     /// the persistence boundary between launches. Writing it inside a Core Bluetooth callback can
@@ -403,10 +406,25 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
         authSession.transport = self
         cgmTransmitterDelegate = cGMTransmitterDelegate
         self.cGMG7TransmitterDelegate = cGMG7TransmitterDelegate
+        phoneWasPaused = phoneCollectionIsPaused
+        watchCollectionObserver = NotificationCenter.default.addObserver(forName: DirectWatchSettings.changed, object: nil, queue: .main) { [weak self] _ in
+            guard let self else { return }
+            let paused = self.phoneCollectionIsPaused
+            guard paused != self.phoneWasPaused else { return }
+            self.phoneWasPaused = paused
+            if paused {
+                self.stopScanning()
+                self.disconnect()
+            } else { self.connect() }
+        }
 
         if !useOtherApp, !hasValidPairingCode {
             trace("G7 primary mode requires a four-digit pairing code. Falling back to coexistence", log: log, category: ConstantsLog.categoryCGMG7, type: .error)
         }
+    }
+
+    deinit {
+        if let watchCollectionObserver { NotificationCenter.default.removeObserver(watchCollectionObserver) }
     }
 
     override func prepareForRelease() {
@@ -424,8 +442,8 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
         super.prepareForRelease()
     }
 
-    /// Primary mode owns its connection and uses the normal direct-connect path. Coexistence only
-    /// attaches after the Dexcom app has established the system Bluetooth connection.
+    /// Discover new coexistence sensors through the Dexcom app's connection. Known sensors use
+    /// the saved-peripheral path in either mode; connecting does not claim authentication ownership.
     override func connect() {
         runOnCentralQueue { [weak self] in
             self?.connectOnCentral()
@@ -434,17 +452,18 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
 
     private func connectOnCentral() {
         assertOnCentral()
-        if useOtherApp {
+        guard !phoneCollectionIsPaused else { return }
+        if useOtherApp, deviceAddress == nil {
             startCoexistenceObservation()
-        } else if primaryAuthenticationBlocked {
+        } else if !useOtherApp, primaryAuthenticationBlocked {
             trace("G7 primary connection remains stopped after authentication rejection", log: log, category: ConstantsLog.categoryCGMG7, type: .info)
         } else {
             super.connect()
         }
     }
 
-    /// Duplicate advertisements let coexistence re-check the live system-connected list after the
-    /// Dexcom app authenticates. No timer or delayed retry is needed.
+    /// During initial discovery, foreground duplicate advertisements can re-check whether the
+    /// Dexcom app has connected. Known-sensor reconnection must not depend on these callbacks.
     override func scanOptions() -> [String: Any]? {
         useOtherApp ? [CBCentralManagerScanOptionAllowDuplicatesKey: true] : nil
     }
@@ -593,8 +612,13 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
     }
 
     override func reconnectAfterDisconnect(_ central: CBCentralManager) {
+        guard !phoneCollectionIsPaused else { return }
         if useOtherApp {
-            startCoexistenceObservation()
+            // The sensor normally sleeps between readings. An immediate system-connected lookup
+            // is then empty, and background scanning may never deliver another discovery. Keep
+            // the known peripheral's request pending, as on startup, while Dexcom owns authentication.
+            trace("G7 coexistence reconnect queued for known sensor; waiting for Dexcom authentication", log: log, category: ConstantsLog.categoryCGMG7, type: .info)
+            super.reconnectAfterDisconnect(central)
         } else if primaryAuthenticationBlocked {
             trace("G7 primary reconnect suppressed after authentication rejection", log: log, category: ConstantsLog.categoryCGMG7, type: .info)
         } else {
@@ -602,12 +626,20 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
         }
     }
 
-    override func centralManager(_: CBCentralManager, didConnect peripheral: CBPeripheral) {
+    override func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        guard !phoneCollectionIsPaused else {
+            central.cancelPeripheralConnection(peripheral)
+            return
+        }
+        // Saved-peripheral and restored connections can arrive while an old discovery scan is
+        // still active. Stop it so unrelated advertisements cannot replace this pending connection.
+        if useOtherApp { central.stopScan() }
+
         // A G7 wakes for a short connection window. Every callback and command below must belong to
         // this window, so clear cached clocks, paired coexistence frames, notification readiness,
         // and partial calibration transport before discovering the new characteristic instances.
         cycleId += 1
-        sensorAge = nil
+        sensorStartDate = nil
         pendingBackfillRawFrames.removeAll(keepingCapacity: true)
         backfill.removeAll(keepingCapacity: true)
         primaryAuthenticated = false
@@ -668,7 +700,7 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
         // Do not retain mode readiness or CBCharacteristic objects across G7 wake cycles. Core
         // Bluetooth creates new characteristic instances after discovery and the sensor requires a
         // fresh authentication status on every connection.
-        sensorAge = nil
+        sensorStartDate = nil
         pendingBackfillRawFrames.removeAll(keepingCapacity: true)
         primaryAuthenticated = false
         primaryGlucoseRequestSent = false
@@ -1040,7 +1072,7 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
                 type: .error,
                 String(format: "%02X", message.responseStatus),
                 String(format: "%02X", message.algorithmStatus.rawValue),
-                String(format: "%.0f", message.sensorAge - TimeInterval(message.transmitterTime)),
+                String(format: "%.0f", message.messageAge),
                 String(format: "%.1f", message.calculatedValue),
                 value.hexEncodedString()
             )
@@ -1057,7 +1089,8 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
             algorithmStatus: message.algorithmStatus,
             sensorAge: message.sensorAge,
             timeStamp: message.timeStamp,
-            transmitterTime: message.transmitterTime
+            transmitterTime: message.transmitterTime,
+            clockReferenceDate: message.receivedAt
         )
     }
 
@@ -1097,7 +1130,8 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
             algorithmStatus: glucose.algorithmStatus,
             sensorAge: sensorAge,
             timeStamp: timeStamp,
-            transmitterTime: glucose.transmitterTime
+            transmitterTime: glucose.transmitterTime,
+            clockReferenceDate: timeStamp
         )
     }
 
@@ -1106,27 +1140,29 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
         algorithmStatus: DexcomAlgorithmState,
         sensorAge: TimeInterval,
         timeStamp: Date,
-        transmitterTime: UInt32
+        transmitterTime: UInt32,
+        clockReferenceDate: Date
     ) {
         // From this point onward primary 0x4E and coexistence 0x31 readings share exactly the same
         // validation and delivery pipeline. Keeping the mode-specific decoding above this method
         // prevents downstream UI and storage behavior from drifting between connection modes.
         latestTransmitterClock = DexcomG7TransmitterClockReference(
             transmitterTime: transmitterTime,
-            referenceDate: timeStamp
+            referenceDate: clockReferenceDate
         )
         // A lifetime query is sent only after a valid glucose packet proves that authentication
         // and the selected display channel are working. The one-time query is intentionally kept
         // behind any queued calibration so it cannot delay a user-requested treatment action.
         defer { sendPostGlucoseCommandIfReady() }
         let currentSensorAge = sensorAge
-        self.sensorAge = currentSensorAge
+        self.sensorStartDate = timeStamp.addingTimeInterval(-currentSensorAge)
         processPendingBackfillFramesIfPossible()
 
         // Reject packets beyond the detected product lifetime plus its included 12-hour grace
         // period. This also prevents an old sensor still visible to Core Bluetooth from becoming
         // the active source after a replacement has been added.
-        let sensorAgeInDays = round((currentSensorAge / 3600 / 24) * 10) / 10
+        let ageAtReceipt = currentSensorAge + clockReferenceDate.timeIntervalSince(timeStamp)
+        let sensorAgeInDays = round((ageAtReceipt / 3600 / 24) * 10) / 10
         guard sensorAgeInDays <= maximumSensorAgeInDays else {
             trace("G7 sensor is expired. Ignoring reading at age %{public}@ days", log: log, category: ConstantsLog.categoryCGMG7, type: .error, sensorAgeInDays.description)
             return
@@ -1570,10 +1606,10 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
         guard value.count == 9 else { return }
         trace("G7 Backfill RX: %{public}@", log: log, category: ConstantsLog.categoryCGMG7, type: .debug, value.hexEncodedString())
         // Backfill packets contain a relative age. Decode immediately only when this connection has
-        // already supplied a trustworthy current sensor age. Otherwise retain the raw nine bytes
+        // already supplied a trustworthy sensor start date. Otherwise retain the raw nine bytes
         // until the live glucose packet establishes the time reference.
-        if let sensorAge, sensorAge < maximumSensorAgeInDays * 24 * 3600,
-           let message = DexcomG7BackfillMessage(data: value, sensorAge: sensorAge)
+        if let sensorStartDate, Date().timeIntervalSince(sensorStartDate) < maximumSensorAgeInDays * 24 * 3600,
+           let message = DexcomG7BackfillMessage(data: value, sensorStartDate: sensorStartDate)
         {
             if appendBackfillMessage(message), timeStampLastReading.map({ message.timeStamp > $0 }) ?? true {
                 timeStampLastReading = message.timeStamp
@@ -2111,16 +2147,16 @@ class CGMG7Transmitter: BluetoothTransmitter, CGMTransmitter, DexcomG7AuthSessio
     }
 
     private func processPendingBackfillFramesIfPossible() {
-        // Decode all deferred frames against the current connection's sensor age, then clear the
+        // Decode all deferred frames against the current connection's fixed session date, then clear the
         // raw queue even if an individual packet is malformed. A later connection must never reuse
         // historical bytes with a different time reference.
-        guard let sensorAge,
-              sensorAge < maximumSensorAgeInDays * 24 * 3600,
+        guard let sensorStartDate,
+              Date().timeIntervalSince(sensorStartDate) < maximumSensorAgeInDays * 24 * 3600,
               !pendingBackfillRawFrames.isEmpty
         else { return }
 
         for raw in pendingBackfillRawFrames {
-            if let message = DexcomG7BackfillMessage(data: raw, sensorAge: sensorAge) { appendBackfillMessage(message) }
+            if let message = DexcomG7BackfillMessage(data: raw, sensorStartDate: sensorStartDate) { appendBackfillMessage(message) }
             else { trace("deferred G7 backfill parse failed: %{public}@", log: log, category: ConstantsLog.categoryCGMG7, type: .debug, raw.hexEncodedString()) }
         }
         pendingBackfillRawFrames.removeAll(keepingCapacity: true)

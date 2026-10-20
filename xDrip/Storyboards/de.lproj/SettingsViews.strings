@@ -3,7 +3,6 @@
 "emailbodyText" = "Problem Beschreibung: ";
 
 /// dexcom share settings, where user can select if readings should be uploaded to dexcom share yes or no
-"settingsviews_uploadReadingstoDexcomShare" = "Upload";
 
 /// for text in pop up where user can select bg unit
 "settingsviews_selectbgunit" = "Blutzucker Einheit";
@@ -106,7 +105,6 @@
 "settingsviews_labelCalibrationType" = "Kalibrierungs Typ";
 
 /// healthkit settings, literally 'healthkit'
-"settingsviews_healthkit" = "In Apple Health schreiben";
 
 /// speak settings, section title
 
@@ -176,7 +174,6 @@
 "timeScheduleViewTitle" = "An/Aus für geplanten upload ";
 
 /// nightscout settings, where user can enable or disable nightscout
-"settingsviews_nightscoutEnabled" = "Nightscout aktivieren";
 
 /// alerting settings, section title
 "settingsviews_sectiontitlealerting" = "Alarms";
@@ -294,19 +291,19 @@
 
 /// home screen settings, section title
 "settingsviews_sectiontitlehomescreen" = "Home Screen";
-"settingsviews_mainChartHours" = "Stunden im Hauptdiagramm";
+"settingsviews_mainChartHours" = "Zeitraum";
 
 /// transmitter settings, this is for the button, when clicked then user will be requested to give transmitter id. The only difference with settingsviews_transmitterid is that ':' is not added
 "settingsviews_transmitterid_text_for_button" = "Transmitter ID";
 
 
 "settingsviews_sectiontitlestatistics" = "Statistik";
-"settingsviews_showStatistics" = "Zeige Verlauf";
+"settingsviews_showStatistics" = "Statistik";
 "settingsviews_daysToUseStatisticsTitle" = "Tage zum berechnen";
 "settingsviews_daysToUseStatisticsMessage" = "Maximale Tage anhand dessen versucht wird den Verlauf zu berechnen?\n\n(Bei 0 wird heute ab Mitternacht berechnet)";
-"settingsviews_useIFCCA1C" = "HbA1c in mmols/mol";
+"settingsviews_useIFCCGMI" = "GMI in mmols/mol";
 
-"settingsviews_showClockWhenScreenIsLocked" = "Sperrbildschirm-Uhr";
+"settingsviews_showClockWhenScreenIsLocked" = "Uhr";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
@@ -346,7 +343,7 @@
 "settingsviews_smallBolusTreatmentThresholdMessage" = "Below how many units should we consider a bolus as a micro-bolus?\n\n(Recommended value: 1.0U)";
 
 /// treatments settings, show the treatments on main chart
-"settingsviews_showTreatments" = "Show Treatments";
+"settingsviews_showTreatments" = "Therapie";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
@@ -449,8 +446,8 @@
 "settingsviews_SpeakIntervalMessage" = "Minimum interval between two voice announcements";
 
 /// home screen settings, should the mini-chart be shown
-"settingsviews_showMiniChart" = "Show Mini-Chart";
-"settingsviews_showSensorNoise" = "Show Sensor Noise";
+"settingsviews_showMiniChart" = "Minidiagramm";
+"settingsviews_showSensorNoise" = "Sensorrauschen";
 
 /// data source settings, the name of the person we are following
 "settingsviews_followerPatientName" = "Alias";
@@ -494,7 +491,7 @@
 "settingsviews_followerKeepAliveTypeNormalMessage" = "Aktiv halten is set to normal operation.\n\nWhen the app is not on screen, we will attempt to keep it running for you in the background so that BG updates are received and alarms can be triggered.\n\nThis mode has a noticeable impact on the battery of your device.";
 
 /// home screen settings, should the screen be dimmed when the screen is locked
-"settingsviews_screenLockDimmingTypeWhenScreenIsLocked" = "Sperrbildschirm-Dimmung";
+"settingsviews_screenLockDimmingTypeWhenScreenIsLocked" = "Abdunklung";
 
 /// Should loop data be shared only every 5 minutes
 
@@ -587,8 +584,7 @@
 
 "settingsviews_infoContactsAccessRestricted" = "Authorisierung von %@ zum Zugriff auf Kontakte nicht möglich. Möglicherweise sind Einschränkungen, bspw. Elternkontrolle, aktiv.";
 "settingsviews_contactImageSectionTitle" = "Kontaktbild";
-"settingsviews_enableContactImage" = "Kontaktbild";
-"settingsviews_displayTrendInContactImage" = "Zeige Trend";
+"settingsviews_displayTrendInContactImage" = "Trend";
 "settingsviews_contactImageCreatedByString" = "Kontakt automatisch erstellt von";
 "settingsviews_backupCreate" = "Backup erstellen";
 "settingsviews_backupRestore" = "Sicherung wiederherstellen";
@@ -720,11 +716,11 @@
 "therapy.carbDuration" = "Kohlenhydratdauer";
 "therapy.local" = "Lokal berechnet";
 
-"settingsviews_showOriginalBGReadings" = "Originalwerte Anzeigen";
+"settingsviews_showOriginalBGReadings" = "Originalwerte";
 
 "therapy.insulinType" = "Insulintyp";
 
-"therapy.showIOBCOB" = "IOB/COB anzeigen";
+"therapy.showIOBCOB" = "IOB/COB";
 
 "therapy.treatmentSettings" = "Behandlungen";
 
@@ -764,3 +760,42 @@
 
 /* Validation message when both speech schedule times are equal. */
 "speak.schedule.differentTimes" = "Wähle unterschiedliche Zeiten zum Aktivieren und Deaktivieren.";
+"therapy.summary" = "Therapieübersicht";
+"therapy.curves" = "IOB/COB-Kurven";
+"homeScreen.layout" = "Startbildschirm-Layout";
+"homeScreen.elapsed" = "Vergangen";
+"homeScreen.remaining" = "Verbleibend";
+"homeScreen.basalPosition" = "Basalposition";
+"homeScreen.basalTop" = "Oben";
+"homeScreen.basalBottom" = "Unten";
+"settingsviews_homeScreenChartDisplaySectionTitle" = "Glukosediagramm";
+
+"therapy.none" = "Kein";
+
+/* Treatment label thresholds. Only the bolus threshold also affects list classification. None disables label hiding. */
+"therapy.treatmentThresholds" = "Behandlungsgrenzen";
+"therapy.smallBolusThreshold" = "Kleinbolus";
+"therapy.smallCarbThreshold" = "Kleine KH";
+"therapy.treatmentThresholdsExplanation" = "Bolus- und KH-Werte unter den Schwellen sind im Diagramm verborgen. Die Bolusschwelle definiert auch kleine Boli in der Behandlungsliste. «Kein» zeigt alle Werte.";
+
+"settingsviews_useIFCCA1C" = "HbA1c in mmols/mol";
+
+"settingsviews_statisticsEstimate" = "Glukoseschätzung";
+
+/* Treatment marker sizing only. Standard keeps the existing ranges; Small Doses uses larger minimum markers. */
+"therapy.treatmentScale" = "Therapieskala";
+"therapy.scaleStandard" = "Standard";
+"therapy.scaleSmallDoses" = "Kleine Dos.";
+"therapy.treatmentScaleExplanation" = "«Kleine Dos.» macht kleine Marker deutlicher. Bolusmarker skalieren von 0.1–2.0U, KH-Marker von 1–50g. Größere Mengen nutzen den größten Marker.";
+
+/* Live Activity styles */
+"settingsviews_liveActivityTypeMinimal" = "Minimal";
+"settingsviews_liveActivityTypeNormal" = "Normal";
+"settingsviews_liveActivityTypeLarge" = "Groß";
+
+/* Dexcom Share upload enable section heading */
+"settingsviews_dexcomShareUploadSectionTitle" = "Dexcom Share-Upload";
+
+/* Speak Glucose wording and preview. */
+"speak.introduction" = "Einleitung sprechen";
+"speak.preview" = "Glukoseansage testen";

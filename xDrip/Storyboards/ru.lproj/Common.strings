@@ -1,5 +1,6 @@
 "common_Ok" = "OK";
 "common_cancel" = "Отмена";
+"common_close" = "Закрыть";
 "common_mgdl" = "mg/dL";
 "common_mmol" = "mmol/L";
 "common_bloodglucoseunit" = "Единица глюкозы";
@@ -14,7 +15,7 @@
 "common_minute" = "мин";
 "common_day" = "день";
 "common_days" = "дней";
-"common_landscape_comparingWithLast" = "Сравнение с последними:";
+"common_landscape_showAGPChartData" = "Показать данные графика AGP:";
 "common_landscape_comparisonDays" = "%d дней";
 "common_landscape_comparisonNone" = "Нет";
 "common_today" = "Сегодня";
@@ -45,7 +46,11 @@
 "common_statistics_inRange" = "В диапазоне";
 "common_statistics_high" = "Выс";
 "common_statistics_average" = "Средний";
-"common_statistics_a1c" = "HbA1c";
+"common_statistics_gmiTrend" = "Тренд GMI";
+"common_statistics_threeDay" = "За 3 дня";
+"common_statistics_weekly" = "Еженедельно";
+"common_statistics_daily" = "Ежедневно";
+"common_statistics_gmi" = "GMI";
 "common_statistics_cv" = "CV";
 "common_dontshowagain" = "Не показывать снова";
 
@@ -72,3 +77,15 @@
 // Live Activity sensor warm-up
 "common_sensorWarmingUp" = "Сенсор прогревается";
 "common_sensorWarmupUntilFormat" = "До %@";
+"common_sensorWarmupComplete" = "Прогрев завершён";
+"common_sensorWaitingForReading" = "Ожидание первого показания…";
+
+"common_statistics_a1c" = "HbA1c";
+
+"common_statistics_estimatedA1c" = "Расчётный HbA1c";
+
+/* Switch title when the surrounding screen or section identifies the feature */
+"common_enable" = "Включить";
+
+/* Status label, including Direct to Watch in Advanced Settings. */
+"common_enabled" = "Включено";

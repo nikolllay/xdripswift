@@ -80,7 +80,7 @@
 
 /// home screen settings, section title
 "settingsviews_sectiontitlehomescreen" = "Home Screen";
-"settingsviews_mainChartHours" = "Години на головному графіку";
+"settingsviews_mainChartHours" = "Часовий діапазон";
 
 /// If user has earlier denied access to calendar, and then tries to activate creation of events in calendar, this message will be shown
 
@@ -95,13 +95,12 @@
 
 
 /// nightscout settings, where user can enable or disable nightscout
-"settingsviews_nightscoutEnabled" = "Enable Nightscout";
 
 /// home screen settings, urgent high value
 "settingsviews_urgentHighValue" = "Urgent High Value";
 
 /// statistics settings, use IFCC method for HbA1c?
-"settingsviews_useIFCCA1C" = "HbA1c in mmols/mol";
+"settingsviews_useIFCCGMI" = "GMI in mmols/mol";
 
 /// dexcom share settings settings, where user can set dexcom serial number to be used for dexcom share upload
 "settingsviews_dexcomShareUploadSerialNumber" = "Receiver Serial Number";
@@ -116,13 +115,12 @@
 "settingsviews_useUSDexcomShareurl" = "Сервери US";
 
 /// healthkit settings, literally 'healthkit'
-"settingsviews_healthkit" = "Записувати в Apple Health";
 
 /// In Settings, Alerts section, there's an option to test the volume settings, this is text explaining the test when clicking the row - this is for ios sound volume test
 "volumeTestiOSSoundExplanation" = "An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = Off\n\n(Also used always for Missed Reading alarms which use the iOS volume.)\n\nPress one of the volume buttons to stop the sound, then change the volume with the volume buttons to the desired volume and test again.";
 
 /// statistics settings, show statistics on home screen
-"settingsviews_showStatistics" = "Show Statistics";
+"settingsviews_showStatistics" = "Статистика";
 
 /// alerting settings, row alert types
 "settingsviews_row_alert_types" = "Alarm Types";
@@ -198,7 +196,7 @@
 "settingsviews_IntervalMessage" = "Minimum interval between two notifications";
 
 /// home screen settings, should the clock also be displayed when the screen is locked?
-"settingsviews_showClockWhenScreenIsLocked" = "Годинник екрана блокування";
+"settingsviews_showClockWhenScreenIsLocked" = "Годинник";
 
 /// dexcom share settings, section title
 "settingsviews_sectiontitledexcomshareupload" = "Dexcom Share";
@@ -237,7 +235,7 @@
 "settingsviews_Version" = "Version";
 
 /// treatments settings, show the treatments on main chart
-"settingsviews_showTreatments" = "Show Treatments";
+"settingsviews_showTreatments" = "Терапія";
 
 /// shown on top of the first settings screen, literally 'Settings'
 "settingsviews_settingstitle" = "Settings";
@@ -275,7 +273,6 @@
 "settingsviews_transmitterid_text_for_button" = "Transmitter ID";
 
 /// dexcom share settings, where user can select if readings should be uploaded to dexcom share yes or no
-"settingsviews_uploadReadingstoDexcomShare" = "Завантажити";
 
 /// nightscout or dexcom share settings, where user can select to edit the schedule
 "schedule" = "Schedule";
@@ -435,8 +432,8 @@
 "settingsviews_SpeakIntervalMessage" = "Minimum interval between two voice announcements";
 
 /// home screen settings, should the mini-chart be shown
-"settingsviews_showMiniChart" = "Show Mini-Chart";
-"settingsviews_showSensorNoise" = "Show Sensor Noise";
+"settingsviews_showMiniChart" = "Мініграфік";
+"settingsviews_showSensorNoise" = "Шум сенсора";
 
 /// data source settings, the name of the person we are following
 "settingsviews_followerPatientName" = "Псевдонім";
@@ -480,7 +477,7 @@
 "settingsviews_followerKeepAliveTypeNormalMessage" = "Підтримка активності is set to normal operation.\n\nWhen the app is not on screen, we will attempt to keep it running for you in the background so that BG updates are received and alarms can be triggered.\n\nThis mode has a noticeable impact on the battery of your device.";
 
 /// home screen settings, should the screen be dimmed when the screen is locked
-"settingsviews_screenLockDimmingTypeWhenScreenIsLocked" = "Затемнення екрана блокування";
+"settingsviews_screenLockDimmingTypeWhenScreenIsLocked" = "Затемнення";
 
 /// Should loop data be shared only every 5 minutes
 
@@ -700,11 +697,11 @@
 "therapy.carbDuration" = "Час Засвоєння Вуглеводів";
 "therapy.local" = "Розраховується локально";
 
-"settingsviews_showOriginalBGReadings" = "Показувати Початкові Значення";
+"settingsviews_showOriginalBGReadings" = "Початкові значення";
 
 "therapy.insulinType" = "Тип Інсуліну";
 
-"therapy.showIOBCOB" = "Показувати IOB/COB";
+"therapy.showIOBCOB" = "IOB/COB";
 
 "therapy.treatmentSettings" = "Терапія";
 
@@ -744,3 +741,43 @@
 
 /* Validation message when both speech schedule times are equal. */
 "speak.schedule.differentTimes" = "Виберіть різний час увімкнення та вимкнення.";
+"therapy.summary" = "Підсумок терапії";
+"therapy.curves" = "Криві IOB/COB";
+"settingsviews_displayTrendInContactImage" = "Тенденція";
+"homeScreen.layout" = "Макет головного екрана";
+"homeScreen.elapsed" = "Минуло";
+"homeScreen.remaining" = "Залишилося";
+"homeScreen.basalPosition" = "Положення базалу";
+"homeScreen.basalTop" = "Вгорі";
+"homeScreen.basalBottom" = "Внизу";
+"settingsviews_homeScreenChartDisplaySectionTitle" = "Графік глюкози";
+
+"therapy.none" = "Ні";
+
+/* Treatment label thresholds. Only the bolus threshold also affects list classification. None disables label hiding. */
+"therapy.treatmentThresholds" = "Пороги терапії";
+"therapy.smallBolusThreshold" = "Мал. бол.";
+"therapy.smallCarbThreshold" = "Мало вугл.";
+"therapy.treatmentThresholdsExplanation" = "Значення болюсів і вуглеводів нижче порогів приховані на графіку. Поріг болюса також визначає малі болюси у списку терапії. «Ні» показує всі значення.";
+
+"settingsviews_useIFCCA1C" = "HbA1c in mmols/mol";
+
+"settingsviews_statisticsEstimate" = "Оцінка глюкози";
+
+/* Treatment marker sizing only. Standard keeps the existing ranges; Small Doses uses larger minimum markers. */
+"therapy.treatmentScale" = "Шкала терапії";
+"therapy.scaleStandard" = "Типова";
+"therapy.scaleSmallDoses" = "Малі дози";
+"therapy.treatmentScaleExplanation" = "Малі дози роблять малі маркери помітнішими. Болюси: 0.1–2.0U; вуглеводи: 1–50g. Більші кількості використовують найбільший маркер.";
+
+/* Live Activity styles */
+"settingsviews_liveActivityTypeMinimal" = "Мінімальний";
+"settingsviews_liveActivityTypeNormal" = "Звичайний";
+"settingsviews_liveActivityTypeLarge" = "Великий";
+
+/* Dexcom Share upload enable section heading */
+"settingsviews_dexcomShareUploadSectionTitle" = "Завантаження в Dexcom Share";
+
+/* Speak Glucose wording and preview. */
+"speak.introduction" = "Промовляти вступ";
+"speak.preview" = "Прослухати приклад озвучення глюкози";

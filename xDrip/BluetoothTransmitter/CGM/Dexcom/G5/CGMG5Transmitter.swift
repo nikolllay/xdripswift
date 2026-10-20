@@ -25,6 +25,10 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     /// Authentication role requested on the next active G6 connection.
     /// Co-existence mode does not send an authentication request, so this value has no effect there.
     public var bluetoothSlot: DexcomG6BluetoothSlot
+
+    private var watchCollectionObserver: NSObjectProtocol?
+    private var phoneWasPaused = false
+    private var phoneCollectionIsPaused: Bool { DirectWatchSettings.phoneIsPaused(transmitterId) }
     
     /// is the G6 transmitter Anubis-modified?
     /// use this flag (once set by the TransmitterVersionRxMessage) to enable extra features as needed
@@ -93,6 +97,18 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     /// track the algorithm state so we can use it in different parts of the class
     private var lastAlgorithmStatus: DexcomAlgorithmState?
     
+    // main-thread snapshot for presentation; never reuse a warm-up report for another session
+    private var warmupReport: (startDate: Date?, receivedAt: Date)?
+
+    func sensorWarmupConfirmationUntil(for startDate: Date, now: Date = Date()) -> Date? {
+        guard let report = warmupReport, let reportedStartDate = report.startDate,
+              !Self.shouldReportDetectedSensor(activeSensorStartDate: startDate, receivedSensorStartDate: reportedStartDate),
+              report.receivedAt <= now else { return nil }
+        // Two reading cycles without a fresh report must not leave Home waiting indefinitely.
+        let validUntil = report.receivedAt.addingTimeInterval(10 * 60)
+        return validUntil > now ? validUntil : nil
+    }
+
     /// transmitterId
     private let transmitterId:String
 
@@ -168,6 +184,9 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     
     /// to temporary store the received SensorStartDate. Will be compared to sensorStartDate only after having received a glucoseRx message with a valid algorithm status
     private var receivedSensorStartDate: Date?
+
+    /// Paired with the date resolved from that clock, before a running status confirms it.
+    private var receivedSessionClock: (clock: DexcomTransmitterTimeRxMessage, resolvedStartDate: Date)?
 
     /// the start date last reported after a glucose packet confirmed the matching internal session
     private var reportedConfirmedSensorStartDate: Date?
@@ -270,6 +289,17 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
         
         // assign cGMG5TransmitterDelegate
         self.cGMG5TransmitterDelegate = cGMG5TransmitterDelegate
+        phoneWasPaused = phoneCollectionIsPaused
+        watchCollectionObserver = NotificationCenter.default.addObserver(forName: DirectWatchSettings.changed, object: nil, queue: .main) { [weak self] _ in
+            guard let self else { return }
+            let paused = self.phoneCollectionIsPaused
+            guard paused != self.phoneWasPaused else { return }
+            self.phoneWasPaused = paused
+            if paused {
+                self.stopScanning()
+                self.disconnect()
+            } else { self.connect() }
+        }
     }
     
     #if DEBUG
@@ -349,12 +379,18 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     }
 
     deinit {
+        if let watchCollectionObserver { NotificationCenter.default.removeObserver(watchCollectionObserver) }
         // if deinit is called, it means user deletes the transmitter or clicks 'stop scanning' or 'disconnect'.
         UserDefaults.standard.timeStampOfLastBatteryReading = nil
         // Delegate cleanup is performed in prepareForRelease() on the main queue
     }
 
     // MARK: - BluetoothTransmitter overriden functions
+
+    override func connect() {
+        guard !phoneCollectionIsPaused else { return }
+        super.connect()
+    }
 
     override func initiatePairing() {
         // assuming that the transmitter is effectively awaiting the pairing, otherwise this obviously won't work
@@ -390,6 +426,7 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
 
     /// Co-existence reconnects after the LoopKit-style 2 second delay.
     override func reconnectAfterDisconnect(_ central: CBCentralManager) {
+        guard !phoneCollectionIsPaused else { return }
         if useOtherApp {
             // Stay inside the CoreBluetooth wake while delaying, then issue
             // the reconnect directly on bt.central. Calling connect() here
@@ -428,6 +465,7 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     /// Failed passive connects restart scanning with the same delayed policy as
     /// passive disconnects. Active mode keeps the generic failure handling.
     override func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        guard !phoneCollectionIsPaused else { return }
         if useOtherApp {
             cancelConnectionTimer()
 
@@ -446,6 +484,7 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     }
 
     override func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
+        guard !phoneCollectionIsPaused else { return }
         super.peripheral(peripheral, didUpdateNotificationStateFor: characteristic, error: error)
         
         // get characteristic description and trace
@@ -526,6 +565,7 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     }
     
     override func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        guard !phoneCollectionIsPaused else { return }
         super.peripheral(peripheral, didUpdateValueFor: characteristic, error: error)
         
         guard let characteristic_UUID = CBUUID_Characteristic_UUID(rawValue: characteristic.uuid.uuidString) else {
@@ -818,6 +858,7 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     }
     
     override func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        guard !phoneCollectionIsPaused else { return }
         if useOtherApp {
             // A normal co-existence reconnect uses the exact Core Bluetooth address that was saved
             // after the first successful connection. The superclass enforces that address match and
@@ -855,6 +896,7 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     }
 
     override func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        guard !phoneCollectionIsPaused else { return }
         // Let the common Bluetooth state handler update the UI and reconnect a previously bound
         // peripheral before we handle the special case where initial co-existence onboarding does
         // not yet have a saved Core Bluetooth identifier.
@@ -880,6 +922,10 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     }
 
     override func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        guard !phoneCollectionIsPaused else {
+            central.cancelPeripheralConnection(peripheral)
+            return
+        }
         if useOtherApp {
             // Protect CoreBluetooth restoration/retrieve paths too: a restored
             // peripheral must still be the exact bound UUID for this CGM.
@@ -1514,9 +1560,15 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
         // track the last algorithm status for disconnect filtering
         lastAlgorithmStatus = algorithmStatus
         
+        let reportedStartDate = receivedSensorStartDate
+        let statusReceivedAt = Date()
+
         // send algorithm status to delegate
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            self.warmupReport = algorithmStatus == .SensorWarmup
+                ? (startDate: reportedStartDate, receivedAt: statusReceivedAt)
+                : nil
             self.cGMG5TransmitterDelegate?.received(sensorStatus: algorithmStatus.description, cGMG5Transmitter: self)
             self.cgmTransmitterDelegate?.sensorHealthEventOccurred(algorithmStatus.sensorHealthEvent)
         }
@@ -1554,6 +1606,16 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     /// Reconciles the internal Sensor only after Dexcom has supplied both the session date and a status which confirms that session is running.
     private func reconcileInternalSensorSessionIfConfirmed() {
         guard let receivedSensorStartDate, let lastAlgorithmStatus else { return }
+
+        // Coexistence can deliver warm-up before the session date; keep the original report time.
+        if lastAlgorithmStatus == .SensorWarmup {
+            DispatchQueue.main.async { [weak self] in
+                guard let self, self.warmupReport != nil,
+                      self.warmupReport?.startDate != receivedSensorStartDate else { return }
+                self.warmupReport?.startDate = receivedSensorStartDate
+                self.cgmTransmitterDelegate?.sensorHealthEventOccurred(lastAlgorithmStatus.sensorHealthEvent)
+            }
+        }
 
         // Glucose, warm-up and initial-calibration states confirm a real running session.
         // A no-code session needs an internal Sensor before it can accept its first calibration.
@@ -1617,6 +1679,25 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
 
                 trace("in reconcileInternalSensorSession, validated Dexcom glucose data confirms the matching internal sensor session", log: self.log, category: ConstantsLog.categoryCGMG5, type: .info)
                 self.cgmTransmitterDelegate?.sensorSessionConfirmed(startDate: receivedSensorStartDate)
+            }
+        }
+
+        // Queue after any newSensorDetected callback so the identity binds to the resulting
+        // active session. Do not learn identity from a time packet alone or a stopped/error state.
+        if let observation = receivedSessionClock,
+           abs(observation.resolvedStartDate.timeIntervalSince(receivedSensorStartDate)) <= Self.sensorStartDateTolerance,
+           let startCounter = observation.clock.sensorStartCounter {
+            DispatchQueue.main.async { [weak self] in
+                guard let self,
+                      let activeStartDate = UserDefaults.standard.activeSensorStartDate,
+                      !Self.shouldReportDetectedSensor(activeSensorStartDate: activeStartDate, receivedSensorStartDate: receivedSensorStartDate) else { return }
+                let identity = DexcomSensorSessionIdentity(
+                    transmitterID: self.transmitterId,
+                    startCounter: startCounter,
+                    lastTransmitterTime: observation.clock.transmitterTime,
+                    activeSensorStartDate: activeStartDate
+                )
+                UserDefaults.standard.dexcomSensorSessionIdentityData = try? JSONEncoder().encode(identity)
             }
         }
 
@@ -1696,6 +1777,10 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
         if useOtherApp {
             if let latestReading = lastGlucoseInSensorDataRxReading {
                 latestReading.backfilledAt = delayedBackfilledAt(for: latestReading.timeStamp)
+                // The passive-mode backfill dot uses a much shorter display threshold.
+                // A normal live cycle can already be over 30 seconds old. Do not confuse
+                // that display marker with a historical collection for source attribution.
+                latestReading.isHistoricalCollection = Date().timeIntervalSince(latestReading.timeStamp) >= ConstantsDirectWatch.minimumWatchBackfillAge
             }
             publishCoexistenceGlucoseIfSessionKnown()
             return
@@ -1744,7 +1829,23 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     /// process transmitterTimeRxMessage
     private func processTransmitterTimeRxMessage(value:Data) {
         if let transmitterTimeRxMessage = DexcomTransmitterTimeRxMessage(data: value) {
-            if let receivedSensorStartDate = transmitterTimeRxMessage.sensorStartDate {
+            let identity = UserDefaults.standard.dexcomSensorSessionIdentityData.flatMap {
+                try? JSONDecoder().decode(DexcomSensorSessionIdentity.self, from: $0)
+            }
+            let establishedStartDate = identity?.resolvedStartDate(
+                transmitterID: transmitterId,
+                clock: transmitterTimeRxMessage,
+                activeStartDate: UserDefaults.standard.activeSensorStartDate ?? activeSensorStartDateAtInitialization
+            )
+            if let identity, !identity.matches(transmitterID: transmitterId, clock: transmitterTimeRxMessage) {
+                UserDefaults.standard.dexcomSensorSessionIdentityData = nil
+            }
+            if let receivedSensorStartDate = establishedStartDate ?? transmitterTimeRxMessage.sensorStartDate {
+                receivedSessionClock = (transmitterTimeRxMessage, receivedSensorStartDate)
+                if let establishedStartDate, let reconstructedStart = transmitterTimeRxMessage.sensorStartDate,
+                   abs(establishedStartDate.timeIntervalSince(reconstructedStart)) > Self.sensorStartDateTolerance {
+                    trace("in processTransmitterTimeRxMessage, preserving confirmed Dexcom session despite wall-clock start drift: %{public}@ -> %{public}@", log: log, category: ConstantsLog.categoryCGMG5, type: .info, reconstructedStart.description, establishedStartDate.description)
+                }
                 trace("in processTransmitterTimeRxMessage, receivedSensorStartDate = %{public}@", log: log, category: ConstantsLog.categoryCGMG5, type: .debug, receivedSensorStartDate.toStringForTrace(timeStyle: .long, dateStyle: .long))
                 
                 // send to delegate (UI/Core Data) on main thread
@@ -1829,27 +1930,9 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
         }
     }
 
-    /// calculates encryptionkey
-    private static func cryptKey(_ id:String) -> Data? {
-        return "00\(id)00\(id)".data(using: .utf8)
-    }
-    
     /// compute hash
     private static func computeHash(_ id:String, of data: Data) -> Data? {
-        guard data.count == 8 else {
-            return nil
-        }
-        
-        var doubleData = Data(capacity: data.count * 2)
-        doubleData.append(data)
-        doubleData.append(data)
-        
-        if let cryptKey = cryptKey(id) {
-            if let outData = try? AESCrypt.encryptData(doubleData, usingKey: cryptKey) {
-                return outData[0..<8]
-            }
-        }
-        return nil
+        DexcomG6WatchProtocol.challengeHash(transmitterID: id, challenge: data)
     }
 
     /// sends pairing request to transmitter, this will result in an iOS generated pairing request

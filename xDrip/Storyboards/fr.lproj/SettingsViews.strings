@@ -22,16 +22,16 @@
 "settingsviews_showReadingInNotification" = "Notifications de glycémie";
 "settingsviews_labelShowReadingInAppBadge" = "Pastille d’app";
 "settingsviews_multipleAppBadgeValueWith10" = "Pastille d’app x10";
-"settingsviews_showClockWhenScreenIsLocked" = "Horloge écran verrouillé";
+"settingsviews_showClockWhenScreenIsLocked" = "Horloge";
 "settingsviews_sectiontitletreatments" = "Traitements";
-"settingsviews_showTreatments" = "Visualiser les traitements";
+"settingsviews_showTreatments" = "Thérapie";
 "settingsviews_smallBolusTreatmentThreshold" = "Seuil des micro-bolus";
 "settingsviews_smallBolusTreatmentThresholdMessage" = "En dessous de combien d'unités un bolus est considéré micro-bolus?\n\n(Valeur conseillée: 1.0U)";
 "settingsviews_sectiontitlestatistics" = "Statistiques";
-"settingsviews_showStatistics" = "Visualiser les statistiques";
+"settingsviews_showStatistics" = "Statistiques";
 "settingsviews_daysToUseStatisticsTitle" = "Nombre de jours";
 "settingsviews_daysToUseStatisticsMessage" = "Nombre maximum de jours utilisés pour le calcul des statistiques?\n\n(Saisir 0 pour aujourd'hui depuis minuit)";
-"settingsviews_useIFCCA1C" = "HbA1c in mmols/mol";
+"settingsviews_useIFCCGMI" = "GMI in mmols/mol";
 "settingsviews_sectiontitletransmitter" = "Transmetteur";
 "settingsviews_transmittertype" = "Type de Transmetteur";
 "settingsviews_transmitterid" = "Transmetteur ID";
@@ -45,9 +45,7 @@
 "settingsviews_alert_types_section_footer" = "Les types d'alarme définissent le comportement des alarmes, notamment le son, la vibration, le rappel et l'ignorance du mode silencieux.";
 "settingsviews_alerts_section_footer" = "Les alarmes définissent quand l'app doit vous avertir pour les niveaux de glucose, les lectures manquantes et d'autres conditions.";
 "settingsviews_sectiontitlehealthkit" = "Apple Health";
-"settingsviews_healthkit" = "Écrire dans Apple Health";
 "settingsviews_sectiontitledexcomshareupload" = "Dexcom Share";
-"settingsviews_uploadReadingstoDexcomShare" = "Envoyer";
 "settingsviews_dexcomShareUploadSerialNumber" = "Numéro de série du receveur";
 "settingsviews_useUSDexcomShareurl" = "Serveurs US";
 "settingsviews_dexcomShareAccountName" = "Nom du compte";
@@ -56,7 +54,6 @@
 "settingsviews_givedexcomShareUploadSerialNumber" = "Entrer le numéro de série Dexcom Receiver";
 "settingsviews_sectiontitlenightscout" = "Nightscout";
 "settingsviews_nightscoutUploadOptionsSectionTitle" = "Options d'envoi";
-"settingsviews_nightscoutEnabled" = "Connecter à Nightscout";
 "settingsviews_nightscoutUrl" = "URL";
 /* Enable the configured time schedule for uploads or spoken glucose readings. Does not enable the underlying feature; its master switch remains separate. */
 "settingsviews_enableSchedule" = "Activer la planification";
@@ -155,7 +152,7 @@
 
 /// home screen settings, section title
 "settingsviews_sectiontitlehomescreen" = "Ecran d'accueil";
-"settingsviews_mainChartHours" = "Heures du graphique principal";
+"settingsviews_mainChartHours" = "Plage horaire";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
@@ -296,8 +293,8 @@
 "settingsviews_SpeakIntervalMessage" = "Minimum interval between two voice announcements";
 
 /// home screen settings, should the mini-chart be shown
-"settingsviews_showMiniChart" = "Show Mini-Chart";
-"settingsviews_showSensorNoise" = "Show Sensor Noise";
+"settingsviews_showMiniChart" = "Mini-graphique";
+"settingsviews_showSensorNoise" = "Bruit du capteur";
 
 /// data source settings, the name of the person we are following
 "settingsviews_followerPatientName" = "Alias";
@@ -341,7 +338,7 @@
 "settingsviews_followerKeepAliveTypeNormalMessage" = "Maintien actif is set to normal operation.\n\nWhen the app is not on screen, we will attempt to keep it running for you in the background so that BG updates are received and alarms can be triggered.\n\nThis mode has a noticeable impact on the battery of your device.";
 
 /// home screen settings, should the screen be dimmed when the screen is locked
-"settingsviews_screenLockDimmingTypeWhenScreenIsLocked" = "Assombrissement écran verrouillé";
+"settingsviews_screenLockDimmingTypeWhenScreenIsLocked" = "Atténuation";
 
 /// Should loop data be shared only every 5 minutes
 
@@ -561,11 +558,11 @@
 "therapy.carbDuration" = "Durée des Glucides";
 "therapy.local" = "Calculé localement";
 
-"settingsviews_showOriginalBGReadings" = "Afficher les Valeurs Originales";
+"settingsviews_showOriginalBGReadings" = "Valeurs originales";
 
 "therapy.insulinType" = "Type d’Insuline";
 
-"therapy.showIOBCOB" = "Afficher l’IOB/COB";
+"therapy.showIOBCOB" = "IOB/COB";
 
 "therapy.treatmentSettings" = "Traitements";
 
@@ -605,3 +602,43 @@
 
 /* Validation message when both speech schedule times are equal. */
 "speak.schedule.differentTimes" = "Choisissez des heures d’activation et de désactivation différentes.";
+"therapy.summary" = "Résumé du traitement";
+"therapy.curves" = "Courbes IOB/COB";
+"settingsviews_displayTrendInContactImage" = "Tendance";
+"homeScreen.layout" = "Disposition de l’accueil";
+"homeScreen.elapsed" = "Écoulée";
+"homeScreen.remaining" = "Restante";
+"homeScreen.basalPosition" = "Position du basal";
+"homeScreen.basalTop" = "En haut";
+"homeScreen.basalBottom" = "En bas";
+"settingsviews_homeScreenChartDisplaySectionTitle" = "Graphique de glycémie";
+
+"therapy.none" = "Non";
+
+/* Treatment label thresholds. Only the bolus threshold also affects list classification. None disables label hiding. */
+"therapy.treatmentThresholds" = "Seuils traitements";
+"therapy.smallBolusThreshold" = "Petit bolus";
+"therapy.smallCarbThreshold" = "Peu gluc.";
+"therapy.treatmentThresholdsExplanation" = "Le graphe masque les valeurs de bolus et glucides sous les seuils. Le seuil bolus définit aussi les petits bolus dans les traitements. «Non» affiche tout.";
+
+"settingsviews_useIFCCA1C" = "HbA1c in mmols/mol";
+
+"settingsviews_statisticsEstimate" = "Estimation du glucose";
+
+/* Treatment marker sizing only. Standard keeps the existing ranges; Small Doses uses larger minimum markers. */
+"therapy.treatmentScale" = "Échelle soins";
+"therapy.scaleStandard" = "Standard";
+"therapy.scaleSmallDoses" = "Petites d.";
+"therapy.treatmentScaleExplanation" = "«Petites d.» rend les petits marqueurs plus visibles. Bolus : 0.1–2.0U ; glucides : 1–50g. Au-delà, les marqueurs ont la taille maximale.";
+
+/* Live Activity styles */
+"settingsviews_liveActivityTypeMinimal" = "Minimal";
+"settingsviews_liveActivityTypeNormal" = "Normal";
+"settingsviews_liveActivityTypeLarge" = "Grand";
+
+/* Dexcom Share upload enable section heading */
+"settingsviews_dexcomShareUploadSectionTitle" = "Envoi vers Dexcom Share";
+
+/* Speak Glucose wording and preview. */
+"speak.introduction" = "Annoncer l’introduction";
+"speak.preview" = "Tester l’annonce de glycémie";

@@ -37,11 +37,11 @@ struct LiveActivityViewContentActivityFamiliesState: View {
                 .cornerRadius(8)
 
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color.black.opacity(0.4))
+                .fill(Color.black.opacity(0.85))
 
-            if state.isSensorWarmingUp, let endDate = state.sensorWarmupEndDate {
+            if state.showsSensorWarmupStatus, let endDate = state.sensorWarmupEndDate {
                 GeometryReader { geometry in
-                    LiveActivitySensorWarmupView(endDate: endDate, compactWidth: geometry.size.width)
+                    LiveActivitySensorWarmupView(endDate: endDate, waitingForReading: state.isWaitingForSensorReading, compactWidth: geometry.size.width)
                         .padding(.vertical, 10)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }

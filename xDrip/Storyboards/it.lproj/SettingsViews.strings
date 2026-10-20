@@ -96,7 +96,6 @@
 "sectionTitleTrace" = "Issue Reporting";
 
 /// nightscout settings, where user can enable or disable nightscout
-"settingsviews_nightscoutEnabled" = "Enable Nightscout";
 
 /// user tries to send trace file but there's no native email account configured
 "emailNotConfigured" = "You must configure an e-mail account on your iOS device.";
@@ -209,7 +208,6 @@
 "settingsviews_labelShowReadingInAppBadge" = "Badge app";
 
 /// healthkit settings, literally 'healthkit'
-"settingsviews_healthkit" = "Scrivi in Apple Health";
 
 /// general settings, literally master
 "settingsviews_master" = "Master";
@@ -266,7 +264,6 @@
 "volumeTestSoundPlayerExplanation" = "An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = On\n\n(Used for all alarms except Missed Reading alerts which always use the iOS volume.)\n\nChange the volume with the volume buttons and press OK when done.";
 
 /// dexcom share settings, where user can select if readings should be uploaded to dexcom share yes or no
-"settingsviews_uploadReadingstoDexcomShare" = "Carica";
 
 /// Apple Watch Settings - text in row where user needs to say if trend should be displayed or not
 "settingsviews_displayTrendInCalendarEvent" = "Tendenza";
@@ -299,7 +296,7 @@
 
 /// home screen settings, section title
 "settingsviews_sectiontitlehomescreen" = "Home Screen";
-"settingsviews_mainChartHours" = "Ore del grafico principale";
+"settingsviews_mainChartHours" = "Intervallo di tempo";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
@@ -319,10 +316,10 @@
 "settingsviews_sectiontitlestatistics" = "Statistics";
 
 /// statistics settings, use IFCC method for HbA1c?
-"settingsviews_useIFCCA1C" = "HbA1c in mmols/mol";
+"settingsviews_useIFCCGMI" = "GMI in mmols/mol";
 
 /// statistics settings, show statistics on home screen
-"settingsviews_showStatistics" = "Show Statistics";
+"settingsviews_showStatistics" = "Statistiche";
 
 /// statistics settings, how many days to use for calculations
 "settingsviews_daysToUseStatisticsTitle" = "Days to Calculate";
@@ -332,7 +329,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 /// general settings, should the clock also be displayed when the screen is locked?
-"settingsviews_showClockWhenScreenIsLocked" = "Orologio schermata bloccata";
+"settingsviews_showClockWhenScreenIsLocked" = "Orologio";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
@@ -378,7 +375,7 @@
 "settingsviews_smallBolusTreatmentThresholdMessage" = "Below how many units should we consider a bolus as a micro-bolus?\n\n(Recommended value: 1.0U)";
 
 /// treatments settings, show the treatments on main chart
-"settingsviews_showTreatments" = "Show Treatments";
+"settingsviews_showTreatments" = "Terapia";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
@@ -481,8 +478,8 @@
 "settingsviews_SpeakIntervalMessage" = "Minimum interval between two voice announcements";
 
 /// home screen settings, should the mini-chart be shown
-"settingsviews_showMiniChart" = "Show Mini-Chart";
-"settingsviews_showSensorNoise" = "Show Sensor Noise";
+"settingsviews_showMiniChart" = "Mini grafico";
+"settingsviews_showSensorNoise" = "Rumore del sensore";
 
 /// data source settings, the name of the person we are following
 "settingsviews_followerPatientName" = "Alias";
@@ -526,7 +523,7 @@
 "settingsviews_followerKeepAliveTypeNormalMessage" = "Mantieni attivo is set to normal operation.\n\nWhen the app is not on screen, we will attempt to keep it running for you in the background so that BG updates are received and alarms can be triggered.\n\nThis mode has a noticeable impact on the battery of your device.";
 
 /// home screen settings, should the screen be dimmed when the screen is locked
-"settingsviews_screenLockDimmingTypeWhenScreenIsLocked" = "Oscuramento schermata bloccata";
+"settingsviews_screenLockDimmingTypeWhenScreenIsLocked" = "Oscuramento";
 
 /// Should loop data be shared only every 5 minutes
 
@@ -746,11 +743,11 @@
 "therapy.carbDuration" = "Durata dei Carboidrati";
 "therapy.local" = "Calcolato localmente";
 
-"settingsviews_showOriginalBGReadings" = "Mostra Valori Originali";
+"settingsviews_showOriginalBGReadings" = "Valori originali";
 
 "therapy.insulinType" = "Tipo di Insulina";
 
-"therapy.showIOBCOB" = "Mostra IOB/COB";
+"therapy.showIOBCOB" = "IOB/COB";
 
 "therapy.treatmentSettings" = "Trattamenti";
 
@@ -790,3 +787,43 @@
 
 /* Validation message when both speech schedule times are equal. */
 "speak.schedule.differentTimes" = "Scegli orari di attivazione e disattivazione diversi.";
+"therapy.summary" = "Riepilogo della terapia";
+"therapy.curves" = "Curve IOB/COB";
+"settingsviews_displayTrendInContactImage" = "Tendenza";
+"homeScreen.layout" = "Layout della schermata iniziale";
+"homeScreen.elapsed" = "Trascorsa";
+"homeScreen.remaining" = "Rimanente";
+"homeScreen.basalPosition" = "Posizione della basale";
+"homeScreen.basalTop" = "In alto";
+"homeScreen.basalBottom" = "In basso";
+"settingsviews_homeScreenChartDisplaySectionTitle" = "Grafico del glucosio";
+
+"therapy.none" = "No";
+
+/* Treatment label thresholds. Only the bolus threshold also affects list classification. None disables label hiding. */
+"therapy.treatmentThresholds" = "Soglie trattamenti";
+"therapy.smallBolusThreshold" = "Bolo basso";
+"therapy.smallCarbThreshold" = "Pochi carb.";
+"therapy.treatmentThresholdsExplanation" = "Il grafico nasconde i valori di boli e carboidrati sotto le soglie. La soglia boli definisce anche i piccoli boli nei trattamenti. «No» mostra tutti i valori.";
+
+"settingsviews_useIFCCA1C" = "HbA1c in mmols/mol";
+
+"settingsviews_statisticsEstimate" = "Stima del glucosio";
+
+/* Treatment marker sizing only. Standard keeps the existing ranges; Small Doses uses larger minimum markers. */
+"therapy.treatmentScale" = "Scala terapie";
+"therapy.scaleStandard" = "Standard";
+"therapy.scaleSmallDoses" = "Dosi basse";
+"therapy.treatmentScaleExplanation" = "«Dosi basse» rende più visibili i piccoli marcatori. Boli: 0.1–2.0U; carboidrati: 1–50g. Quantità maggiori usano il marcatore più grande.";
+
+/* Live Activity styles */
+"settingsviews_liveActivityTypeMinimal" = "Minimo";
+"settingsviews_liveActivityTypeNormal" = "Normale";
+"settingsviews_liveActivityTypeLarge" = "Grande";
+
+/* Dexcom Share upload enable section heading */
+"settingsviews_dexcomShareUploadSectionTitle" = "Caricamento su Dexcom Share";
+
+/* Speak Glucose wording and preview. */
+"speak.introduction" = "Pronuncia introduzione";
+"speak.preview" = "Prova lettura glicemia";

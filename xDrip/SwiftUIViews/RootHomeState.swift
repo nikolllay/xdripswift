@@ -50,7 +50,8 @@ struct RootHomePumpState {
     var basal = RootHomeMetricState(title: "Basal", value: "-")
     var reservoir = RootHomeMetricState(title: Texts_HomeView.pumpReservoir, value: "-")
     var battery = RootHomeMetricState(title: Texts_HomeView.pumpBattery, value: "-")
-    var cage = RootHomeMetricState(title: "CAGE", value: "-")
+    // A missing site-change date means there is no CAGE row to display.
+    var cage: RootHomeMetricState? = nil
     var isHistorical = false
 }
 
@@ -146,7 +147,7 @@ struct RootHomeStatisticsState {
     var inRangePercentage = 0.0
     var highPercentage = 0.0
     var average = RootHomeMetricState(title: Texts_Common.averageStatistics, value: "-")
-    var a1c = RootHomeMetricState(title: Texts_Common.a1cStatistics, value: "-")
+    var gmi = RootHomeMetricState(title: UserDefaults.standard.statisticsUseHbA1c ? Texts_Common.a1cStatistics : Texts_Common.statisticsGMI, value: "-")
     var cv = RootHomeMetricState(title: Texts_Common.cvStatistics, value: "-")
     var lowLimitText = ""
     var highLimitText = ""
@@ -191,6 +192,8 @@ struct RootHomeSensorNoiseState {
 /// Current data-source description and connection indicators.
 struct RootHomeDataSourceState {
     var title = ""
+    var showsWatchCollectorIcon = false
+    var watchCollectorHealth: DirectWatchReadingStatus = .off
     var dexcomConnectionMode: DexcomConnectionMode?
     var detail = ""
     var detailColor = ConstantsAppColors.secondaryText
@@ -381,6 +384,17 @@ final class RootHomeStateModel: ObservableObject {
         }
     }
 
+    func refreshWatchCollectorStatus() {
+        let enabled = watchCollectorIsEnabled()
+        let health = enabled ? DirectWatchSettings.readingStatus() : .off
+        guard state.dataSource.showsWatchCollectorIcon != enabled
+                || state.dataSource.watchCollectorHealth != health else { return }
+        updateState {
+            $0.dataSource.showsWatchCollectorIcon = enabled
+            $0.dataSource.watchCollectorHealth = health
+        }
+    }
+
     func applyTherapyMetrics(to loop: inout RootHomeLoopState, at date: Date = .now, external: AIDStatus? = nil, historical: Bool = false) {
         let metrics = TherapyMetricsManager.shared.snapshot(at: date, external: external, historical: historical)
         loop.therapyMetrics = metrics
@@ -402,7 +416,8 @@ final class RootHomeStateModel: ObservableObject {
             state.statistics.inRangePercentage = 0
             state.statistics.highPercentage = 0
             state.statistics.average.value = "-"
-            state.statistics.a1c.value = "-"
+            state.statistics.gmi.title = UserDefaults.standard.statisticsUseHbA1c ? Texts_Common.a1cStatistics : Texts_Common.statisticsGMI
+            state.statistics.gmi.value = "-"
             state.statistics.cv.value = "-"
         }
     }
@@ -414,21 +429,15 @@ final class RootHomeStateModel: ObservableObject {
         let averageValue = hasData
             ? statistics.averageStatisticValue.bgValueToString(mgDl: isMgDl) + " " + glucoseUnit
             : "-"
-        let a1cValue: String
+        let useHbA1c = UserDefaults.standard.statisticsUseHbA1c
+        let gmiValue = GlucoseReportFormatting.gmi(useHbA1c ? statistics.estimatedHbA1cPercentage : statistics.gmiPercentage,
+            usesIFCC: UserDefaults.standard.useIFCCA1C, compactUnit: true)
         let rangeDistribution = GlucoseRangeDistribution(
             below: statistics.lowStatisticValue,
             inRange: statistics.inRangeStatisticValue,
             above: statistics.highStatisticValue
         )
         let wholePercentages = rangeDistribution.wholePercentages
-
-        if statistics.a1CStatisticValue.value <= 0 {
-            a1cValue = "-"
-        } else if UserDefaults.standard.useIFCCA1C {
-            a1cValue = "\(Int(statistics.a1CStatisticValue.round(toDecimalPlaces: 0))) mmol"
-        } else {
-            a1cValue = "\(statistics.a1CStatisticValue.round(toDecimalPlaces: 1))%"
-        }
 
         updateState { state in
             state.statistics = RootHomeStatisticsState(
@@ -439,7 +448,7 @@ final class RootHomeStateModel: ObservableObject {
                 inRangePercentage: rangeDistribution.inRangePercentage,
                 highPercentage: rangeDistribution.abovePercentage,
                 average: RootHomeMetricState(title: Texts_Common.averageStatistics, value: averageValue),
-                a1c: RootHomeMetricState(title: Texts_Common.a1cStatistics, value: a1cValue),
+                gmi: RootHomeMetricState(title: useHbA1c ? Texts_Common.a1cStatistics : Texts_Common.statisticsGMI, value: gmiValue),
                 cv: RootHomeMetricState(title: Texts_Common.cvStatistics, value: statistics.cVStatisticValue.value > 0 ? "\(Int(statistics.cVStatisticValue.round(toDecimalPlaces: 0)))%" : "-"),
                 lowLimitText: "(<\(self.formattedLimit(statistics.lowLimitForTIR, isMgDl: isMgDl)))",
                 highLimitText: "(>\(self.formattedLimit(statistics.highLimitForTIR, isMgDl: isMgDl)))",
@@ -591,11 +600,13 @@ final class RootHomeStateModel: ObservableObject {
             basal: RootHomeMetricState(title: "Basal", value: basal.map { "\($0) U/hr" } ?? "? U/hr", valueColor: defaultTextColor),
             reservoir: RootHomeMetricState(title: Texts_HomeView.pumpReservoir, value: reservoirText, valueColor: hasRecentData ? deviceStatus?.pumpReservoirColor() ?? defaultTextColor : defaultTextColor),
             battery: RootHomeMetricState(title: Texts_HomeView.pumpBattery, value: batteryText, valueColor: hasRecentData ? deviceStatus?.pumpBatteryPercentColor() ?? defaultTextColor : defaultTextColor),
-            cage: RootHomeMetricState(
-                title: "CAGE",
-                value: cageText(latestSiteChangeDate, referenceDate: referenceDate, usesRelativeCageTime: usesRelativeCageTime),
-                valueColor: cageColor(latestSiteChangeDate, referenceDate: referenceDate, defaultColor: defaultTextColor)
-            )
+            cage: latestSiteChangeDate.map { siteChangeDate in
+                RootHomeMetricState(
+                    title: "CAGE",
+                    value: cageText(siteChangeDate, referenceDate: referenceDate, usesRelativeCageTime: usesRelativeCageTime),
+                    valueColor: cageColor(siteChangeDate, referenceDate: referenceDate, defaultColor: defaultTextColor)
+                )
+            }
         )
     }
 
@@ -739,9 +750,11 @@ final class RootHomeStateModel: ObservableObject {
            sensorAgeInMinutes < ConstantsLibreLinkUp.sensorWarmUpRequiredInMinutesForLibre {
             warmUpMinutes = ConstantsLibreLinkUp.sensorWarmUpRequiredInMinutesForLibre
         } else if UserDefaults.standard.isMaster,
-                  sensorType == .Libre,
-                  sensorAgeInMinutes < ConstantsMaster.minimumSensorWarmUpRequiredInMinutes {
-            warmUpMinutes = ConstantsMaster.minimumSensorWarmUpRequiredInMinutes
+                  sensorType == .Libre {
+            // Use the same sensor-reported duration as Sensor Management and glucose gating.
+            // Native Libre 3/3 Plus reports 60 minutes. Older Libre sources keep their fallback.
+            let requiredMinutes = cgmTransmitter?.sensorWarmupDurationInMinutes() ?? ConstantsMaster.minimumSensorWarmUpRequiredInMinutes
+            warmUpMinutes = sensorAgeInMinutes < requiredMinutes ? requiredMinutes : nil
         } else if UserDefaults.standard.isMaster,
                   cgmTransmitter?.cgmTransmitterType() == .dexcomG7 {
             let requiredMinutes = ConstantsMaster.minimumSensorWarmUpRequiredInMinutesDexcomG7
@@ -762,6 +775,11 @@ final class RootHomeStateModel: ObservableObject {
             currentAge = ""
             let readyDate = sensorStartDate.addingTimeInterval(warmUpMinutes * 60)
             maximumAge = "\(Texts_BluetoothPeripheralView.warmingUpUntil) \(readyDate.toStringInUserLocale(timeStyle: .short, dateStyle: .none))"
+        } else if UserDefaults.standard.isMaster,
+                  let transmitter = cgmTransmitter as? CGMG5Transmitter,
+                  transmitter.sensorWarmupConfirmationUntil(for: sensorStartDate) != nil {
+            currentAge = ""
+            maximumAge = Texts_Common.sensorWaitingForReading
         } else {
             currentAge = countsDown
                 ? Texts_HomeView.sensorLifetimeRemaining(max(timeLeftInMinutes, 0).minutesToDaysAndHours())
@@ -903,6 +921,8 @@ final class RootHomeStateModel: ObservableObject {
 
         return RootHomeDataSourceState(
             title: title,
+            showsWatchCollectorIcon: isMaster && activeSensor != nil && watchCollectorIsEnabled(),
+            watchCollectorHealth: DirectWatchSettings.readingStatus(),
             dexcomConnectionMode: isMaster ? dexcomConnectionMode : nil,
             detail: detail,
             detailColor: detailColor,
@@ -915,6 +935,18 @@ final class RootHomeStateModel: ObservableObject {
             keepAliveSystemImage: UserDefaults.standard.followerBackgroundKeepAliveType.keepAliveImageString,
             keepAliveColor: followerKeepAliveColor
         )
+    }
+
+    private func watchCollectorIsEnabled() -> Bool {
+        guard UserDefaults.standard.isMaster,
+              let configuration = DirectWatchSettings.configuration,
+              let sensorStart = UserDefaults.standard.activeSensorStartDate,
+              abs(sensorStart.timeIntervalSince(configuration.sensorStartDate)) <= 120,
+              let transmitter = bluetoothPeripheralManager?.getCGMTransmitter() as? BluetoothTransmitter,
+              let peripheral = bluetoothPeripheralManager?.getBluetoothPeripheral(for: transmitter)
+        else { return false }
+        return peripheral.blePeripheral.transmitterId == configuration.transmitterID
+            && (configuration.transmitterFamily == .g7 ? peripheral is DexcomG7 : peripheral is DexcomG5)
     }
 
     private func sensorAgeColor(timeLeftInMinutes: Double) -> Color {

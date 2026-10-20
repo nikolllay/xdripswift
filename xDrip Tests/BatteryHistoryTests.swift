@@ -6,11 +6,260 @@
 //  Copyright © 2026 Johan Degraeve. All rights reserved.
 //
 
+import CoreData
 import XCTest
 @testable import xdrip
 
 final class BatteryHistoryTests: XCTestCase {
     private let now = Date(timeIntervalSince1970: 2_000_000_000)
+
+    func testBatteryHistoryModelSupportsLightweightMigration() throws {
+        let directory = try XCTUnwrap(Bundle.main.url(forResource: ConstantsCoreData.modelName, withExtension: "momd"))
+        let previous = try XCTUnwrap(NSManagedObjectModel(contentsOf: directory.appendingPathComponent("xdrip v31.mom")))
+        let current = try XCTUnwrap(NSManagedObjectModel(contentsOf: directory.appendingPathComponent("xdrip v32.mom")))
+        XCTAssertNoThrow(try NSMappingModel.inferredMappingModel(forSourceModel: previous, destinationModel: current))
+        let entity = try XCTUnwrap(current.entitiesByName["BatteryHistorySample"])
+        XCTAssertTrue(try XCTUnwrap(entity.relationshipsByName["blePeripheral"]).isOptional)
+        XCTAssertTrue(try XCTUnwrap(entity.attributesByName["peripheralAddress"]).isOptional)
+    }
+
+    func testBackupFiltersRuntimeAndLegacyCredentialsButKeepsPreferences() {
+        for key in ["nightscoutFollowerGapFillCoverageV2", "nightscoutFollowerGapFillSite",
+                    "nightscoutFollowerGapFillLastAuditEndDate", "careLinkTimestampRepairCompleted",
+                    "careLinkPatientAliases", "pendingHealthKitReplacements", "healthKitSyncVersion",
+                    "dexcomG7PairingCode-ABC", "dexcomG7BluetoothSlot-ABC", "m5StackWiFiPassword1",
+                    "m5StackWiFiPassword2", "m5StackWiFiPassword3", "careLinkPassword"] {
+            XCTAssertFalse(BackupService.isPortableSetting(key), key)
+        }
+        for key in ["speakReadingsScheduleEnabled", "localInsulinPeak", "showIOBCOB", "carPlayLiveActivityType"] {
+            XCTAssertTrue(BackupService.isPortableSetting(key), key)
+        }
+    }
+
+    @MainActor
+    func testBatteryBackupRestoresWithoutCreatingDeviceAndMergesRepeatedImports() async throws {
+        let core = CoreDataManager(inMemoryModelName: ConstantsCoreData.modelName)
+        let context = core.mainManagedObjectContext
+        let service = BackupService(coreDataManager: core)
+        let record = BackupBatteryHistorySample(
+            id: "battery-backup", peripheralAddress: "ABC", observedAt: now,
+            measurementKindRaw: BatteryMeasurementKind.percentage.rawValue, producerKindRaw: 0,
+            percentage: 42, batteryStatusRaw: nil, dexcomFamilyRaw: nil, resistanceRaw: nil,
+            runtimeRaw: nil, temperatureRaw: nil, voltageARaw: nil, voltageBRaw: nil,
+            utcHourBucketStart: now
+        )
+        let data = try JSONEncoder().encode(record)
+        let decoded = try JSONDecoder().decode(BackupBatteryHistorySample.self, from: data)
+        try service.restoreBatteryHistory([decoded], mode: .keepCurrent, context: context)
+        try context.save()
+        try service.restoreBatteryHistory([decoded], mode: .fillGaps, context: context)
+        XCTAssertEqual(try context.count(for: BatteryHistorySample.fetchRequest()), 1)
+        XCTAssertEqual(try context.count(for: BLEPeripheral.fetchRequest()), 0)
+        let sample = try XCTUnwrap(context.fetch(BatteryHistorySample.fetchRequest()).first)
+        XCTAssertNil(sample.blePeripheral)
+        XCTAssertEqual(sample.peripheralAddress, "ABC")
+        XCTAssertEqual(sample.percentage?.intValue, 42)
+        let archive = try await service.createBackup(options: BackupOptions(
+            includesSettings: false, includesAccounts: false, includesBgReadings: true, includesTreatments: false
+        ))
+        defer { try? FileManager.default.removeItem(at: archive.url) }
+        let inspection = try service.inspectBackup(at: archive.url)
+        XCTAssertEqual(inspection.payload.batteryHistory?.first?.peripheralAddress, "ABC")
+        XCTAssertEqual(inspection.payload.batteryHistory?.first?.percentage, 42)
+        let device = DexcomG7(address: "abc", name: "DXCM01", alias: nil, nsManagedObjectContext: context)
+        XCTAssertTrue(core.saveChangesSynchronously())
+        let manager = BatteryHistoryManager(coreDataManager: core)
+        XCTAssertTrue(manager.hasHistory(peripheralObjectID: device.blePeripheral.objectID))
+        XCTAssertEqual(manager.history(peripheralObjectID: device.blePeripheral.objectID).first?.percentage, 42)
+        try service.restoreBatteryHistory([], mode: .replaceRange, context: context)
+        XCTAssertEqual(try context.count(for: BatteryHistorySample.fetchRequest()), 1)
+        try service.restoreBatteryHistory([decoded], mode: .replaceRange, context: context)
+        try context.save()
+        XCTAssertEqual(try context.count(for: BatteryHistorySample.fetchRequest()), 1)
+    }
+
+    @MainActor
+    func testRestoreDoesNotCopyRuntimeValuesFromOlderSettings() async throws {
+        let core = CoreDataManager(inMemoryModelName: ConstantsCoreData.modelName)
+        let service = BackupService(coreDataManager: core)
+        let archive = try await service.createBackup(options: BackupOptions(
+            includesSettings: true, includesAccounts: false, includesBgReadings: false, includesTreatments: false
+        ))
+        defer { try? FileManager.default.removeItem(at: archive.url) }
+        let manifest = try service.inspectBackup(at: archive.url).payload.manifest
+        let keys = ["healthKitSyncVersion", "m5StackWiFiPassword1", "dexcomG7PairingCode-TEST"]
+        let defaults = UserDefaults.standard
+        let previous = keys.map { defaults.object(forKey: $0) }
+        defer {
+            for (key, value) in zip(keys, previous) {
+                if let value { defaults.set(value, forKey: key) }
+                else { defaults.removeObject(forKey: key) }
+            }
+        }
+        for key in keys { defaults.set("destination", forKey: key) }
+        let settings = try Dictionary(uniqueKeysWithValues: keys.map { ($0, try BackupPropertyListValue("source")) })
+        let payload = BackupPayload(manifest: manifest, settings: settings, accounts: nil, alertTypes: [],
+                                    bgReadings: [], treatments: [], deviceStatuses: nil, profiles: nil)
+        _ = try await service.restore(inspection: BackupInspection(payload: payload), mode: .ignore,
+                                      restoresSettings: true, restoredAccountCategories: [])
+        for key in keys { XCTAssertEqual(defaults.string(forKey: key), "destination") }
+    }
+
+    func testBatteryRestoreDerivesMissingHourAndLimitsReplacementToOneDevice() throws {
+        let core = CoreDataManager(inMemoryModelName: ConstantsCoreData.modelName)
+        let context = core.mainManagedObjectContext
+        let service = BackupService(coreDataManager: core)
+        let hour = BatteryHistoryManager.utcHourStart(for: now)
+        func record(_ id: String, address: String, date: Date, percentage: Int) -> BackupBatteryHistorySample {
+            BackupBatteryHistorySample(id: id, peripheralAddress: address, observedAt: date,
+                measurementKindRaw: BatteryMeasurementKind.percentage.rawValue, producerKindRaw: 0,
+                percentage: percentage, batteryStatusRaw: nil, dexcomFamilyRaw: nil, resistanceRaw: nil,
+                runtimeRaw: nil, temperatureRaw: nil, voltageARaw: nil, voltageBRaw: nil, utcHourBucketStart: nil)
+        }
+        let first = record("first", address: "ABC", date: hour, percentage: 40)
+        let duplicateHour = record("same-hour", address: "abc", date: hour.addingTimeInterval(60), percentage: 41)
+        let otherDevice = record("other", address: "DEF", date: hour, percentage: 50)
+        let outside = record("outside", address: "ABC", date: hour.addingTimeInterval(7200), percentage: 60)
+        try service.restoreBatteryHistory([first, otherDevice, outside], mode: .keepCurrent, context: context)
+        try service.restoreBatteryHistory([duplicateHour], mode: .fillGaps, context: context)
+        XCTAssertEqual(try context.count(for: BatteryHistorySample.fetchRequest()), 3)
+        let replacement = record("replacement", address: "ABC", date: hour, percentage: 45)
+        try service.restoreBatteryHistory([replacement], mode: .ignore, context: context)
+        XCTAssertFalse(try context.fetch(BatteryHistorySample.fetchRequest()).contains { $0.id == "replacement" })
+        try service.restoreBatteryHistory([replacement], mode: .replaceRange, context: context)
+        try context.save()
+        let samples = try context.fetch(BatteryHistorySample.fetchRequest())
+        XCTAssertEqual(Set(samples.map(\.id)), ["replacement", "other", "outside"])
+        XCTAssertEqual(samples.first { $0.id == "replacement" }?.utcHourBucketStart, hour)
+    }
+
+    @MainActor
+    func testMissingSettingsPreserveAlertsAndEncryptedBackupRoundTrips() async throws {
+        let core = CoreDataManager(inMemoryModelName: ConstantsCoreData.modelName)
+        let context = core.mainManagedObjectContext
+        let service = BackupService(coreDataManager: core)
+        _ = AlertType(enabled: true, name: "Keep this alert", overrideMute: false, snooze: true,
+                      snoozePeriod: 15, vibrate: false, soundName: nil, alertEntries: nil,
+                      nsManagedObjectContext: context)
+        XCTAssertTrue(core.saveChangesSynchronously())
+        let archive = try await service.createBackup(options: BackupOptions(
+            includesSettings: false, includesAccounts: false, includesBgReadings: false,
+            includesTreatments: false, passphrase: "backup-test"
+        ))
+        defer { try? FileManager.default.removeItem(at: archive.url) }
+        XCTAssertTrue(try service.backupRequiresPassphrase(at: archive.url))
+        XCTAssertThrowsError(try service.inspectBackup(at: archive.url, passphrase: "incorrect"))
+        let inspection = try service.inspectBackup(at: archive.url, passphrase: "backup-test")
+        _ = try await service.restore(inspection: inspection, mode: .replaceRange,
+                                      restoresSettings: true, restoredAccountCategories: [])
+        XCTAssertEqual(try context.fetch(AlertType.fetchRequest()).map(\.name), ["Keep this alert"])
+    }
+
+    func testOlderBackupDecodesWithoutNewHistorySections() throws {
+        let manifest = BackupManifest(
+            format: "xdrip-backup", formatVersion: 1, createdAt: now, appVersion: "7.0.0", appBuild: "4231",
+            bgReadingCount: 0, treatmentCount: 0, deviceStatusCount: nil, profileCount: nil,
+            firstBgReadingDate: nil, lastBgReadingDate: nil, firstTreatmentDate: nil,
+            firstDeviceStatusDate: nil, firstProfileDate: nil, includesSettings: false,
+            includesAccounts: false, isPasswordProtected: false
+        )
+        let payload = BackupPayload(manifest: manifest, settings: nil, accounts: nil, alertTypes: [],
+                                    bgReadings: [], treatments: [], deviceStatuses: nil, profiles: nil)
+        let decoded = try JSONDecoder().decode(BackupPayload.self, from: JSONEncoder().encode(payload))
+        XCTAssertNil(decoded.batteryHistory)
+        XCTAssertNil(decoded.careLinkPatientAliases)
+        XCTAssertNil(decoded.deviceStatuses)
+        XCTAssertNil(decoded.profiles)
+    }
+
+    func testInactiveHistoryEndsAtLastReadingAndPreservesGaps() throws {
+        let core = CoreDataManager(inMemoryModelName: ConstantsCoreData.modelName)
+        let device = Libre2HeartBeat(address: "inactive-history", name: "History Test", alias: nil,
+                                    nsManagedObjectContext: core.mainManagedObjectContext)
+        device.blePeripheral.shouldconnect = false
+        XCTAssertTrue(core.saveChangesSynchronously())
+        let manager = BatteryHistoryManager(coreDataManager: core)
+        let lastObservation = now.addingTimeInterval(-TimeInterval(days: 60))
+        // Sparse observations leave genuine gaps inside the ten-day recorded lifetime.
+        let dates = [10.0, 6.0, 1.0, 0.0].map { lastObservation.addingTimeInterval(-TimeInterval(days: $0)) }
+        for date in dates {
+            manager.record(peripheralObjectID: device.blePeripheral.objectID, observedAt: date,
+                           observation: .percentage(value: 42, producer: .genericHeartbeat))
+        }
+        let points = manager.history(peripheralObjectID: device.blePeripheral.objectID)
+        let information = try XCTUnwrap(manager.information(
+            peripheralObjectID: device.blePeripheral.objectID, now: now, lastObservation: points.last?.observedAt
+        ))
+        XCTAssertFalse(information.isEnabled)
+        XCTAssertEqual(information.chartEndDate, lastObservation)
+        XCTAssertEqual(points.map(\.observedAt), dates)
+        let first = try XCTUnwrap(points.first?.observedAt)
+        let ranges = BatteryHistoryRange.available(firstObservation: first, endDate: information.chartEndDate)
+        XCTAssertEqual(ranges, [.days(3), .days(7), .lifetime(TimeInterval(days: 10))])
+        XCTAssertEqual(ranges.map { range in
+            points.filter { range.domain(endDate: information.chartEndDate).contains($0.observedAt) }.count
+        }, [2, 3, 4])
+        for range in ranges {
+            let domain = range.domain(endDate: information.chartEndDate)
+            XCTAssertEqual(domain.upperBound, lastObservation)
+            XCTAssertTrue(domain.contains(lastObservation))
+            XCTAssertFalse(domain.contains(now))
+        }
+    }
+
+    func testEnabledStateControlsChartEndAndDexcomAgeOnRefresh() throws {
+        let core = CoreDataManager(inMemoryModelName: ConstantsCoreData.modelName)
+        let g6 = DexcomG5(address: "history-g6", name: "DexcomAB", alias: nil,
+                          nsManagedObjectContext: core.mainManagedObjectContext)
+        let g7 = DexcomG7(address: "history-g7", name: "DXCMAB", alias: nil,
+                          nsManagedObjectContext: core.mainManagedObjectContext)
+        let lastObservation = now.addingTimeInterval(-TimeInterval(days: 60))
+        let start = lastObservation.addingTimeInterval(-TimeInterval(days: 10))
+        g6.transmitterStartDate = start
+        g7.sensorStartDate = start
+        XCTAssertTrue(core.saveChangesSynchronously())
+        let manager = BatteryHistoryManager(coreDataManager: core)
+        for peripheral in [g6.blePeripheral, g7.blePeripheral] {
+            // No live Bluetooth connection is needed to keep an enabled device anchored to now.
+            for isEnabled in [true, false, true] {
+                peripheral.shouldconnect = isEnabled
+                let information = try XCTUnwrap(manager.information(
+                    peripheralObjectID: peripheral.objectID, now: now, lastObservation: lastObservation
+                ))
+                XCTAssertEqual(information.isEnabled, isEnabled)
+                XCTAssertEqual(information.chartEndDate, isEnabled ? now : lastObservation)
+                XCTAssertEqual(try XCTUnwrap(information.transmitterLifetime),
+                               TimeInterval(days: isEnabled ? 70 : 10), accuracy: 0.001)
+            }
+        }
+    }
+
+    func testInactiveEmptyHistoryFallsBackToNowAndSingleReadingHasMinimumWidth() throws {
+        let core = CoreDataManager(inMemoryModelName: ConstantsCoreData.modelName)
+        let device = Libre2HeartBeat(address: "empty-history", name: "History Test", alias: nil,
+                                    nsManagedObjectContext: core.mainManagedObjectContext)
+        device.blePeripheral.shouldconnect = false
+        XCTAssertTrue(core.saveChangesSynchronously())
+        let manager = BatteryHistoryManager(coreDataManager: core)
+        XCTAssertTrue(manager.history(peripheralObjectID: device.blePeripheral.objectID).isEmpty)
+        let emptyInformation = try XCTUnwrap(manager.information(peripheralObjectID: device.blePeripheral.objectID, now: now))
+        XCTAssertFalse(emptyInformation.isEnabled)
+        XCTAssertEqual(emptyInformation.chartEndDate, now)
+
+        let observedAt = now.addingTimeInterval(-TimeInterval(days: 60))
+        manager.record(peripheralObjectID: device.blePeripheral.objectID, observedAt: observedAt,
+                       observation: .percentage(value: 42, producer: .genericHeartbeat))
+        let points = manager.history(peripheralObjectID: device.blePeripheral.objectID)
+        XCTAssertEqual(points.count, 1)
+        let information = try XCTUnwrap(manager.information(
+            peripheralObjectID: device.blePeripheral.objectID, now: now, lastObservation: points.last?.observedAt
+        ))
+        let ranges = BatteryHistoryRange.available(firstObservation: observedAt, endDate: information.chartEndDate)
+        XCTAssertEqual(ranges, [.lifetime(0)])
+        let domain = try XCTUnwrap(ranges.last).domain(endDate: information.chartEndDate)
+        XCTAssertEqual(domain.upperBound, observedAt)
+        XCTAssertEqual(domain.upperBound.timeIntervalSince(domain.lowerBound), 6 * 3600, accuracy: 0.001)
+    }
 
     func testAdaptiveRangesReplaceNextUnavailableFixedRangeWithLifetime() {
         XCTAssertEqual(labels(afterDays: 2), ["2d"])
@@ -35,7 +284,7 @@ final class BatteryHistoryTests: XCTestCase {
         ] {
             let ranges = BatteryHistoryRange.available(
                 firstObservation: now.addingTimeInterval(-lifetime),
-                now: now
+                endDate: now
             )
 
             XCTAssertEqual(Set(ranges.map(\.id)).count, ranges.count)
@@ -43,7 +292,7 @@ final class BatteryHistoryTests: XCTestCase {
     }
 
     func testLifetimeChartHasSixHourMinimumDomain() {
-        let range = BatteryHistoryRange.lifetime(30 * 60).domain(now: now)
+        let range = BatteryHistoryRange.lifetime(30 * 60).domain(endDate: now)
         XCTAssertEqual(range.upperBound.timeIntervalSince(range.lowerBound), 6 * 3600, accuracy: 0.001)
     }
 
@@ -279,6 +528,6 @@ final class BatteryHistoryTests: XCTestCase {
     }
 
     private func labels(after lifetime: TimeInterval) -> [String] {
-        BatteryHistoryRange.available(firstObservation: now.addingTimeInterval(-lifetime), now: now).map(\.label)
+        BatteryHistoryRange.available(firstObservation: now.addingTimeInterval(-lifetime), endDate: now).map(\.label)
     }
 }

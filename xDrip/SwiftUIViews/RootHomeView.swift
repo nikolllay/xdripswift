@@ -77,6 +77,7 @@ struct RootHomeView: View {
     @State private var chartYAxisResetRevision = 0
     @State private var showsExpandedIPadChart = false
     @AppStorage(UserDefaults.KeysCharts.chartWidthInHours.rawValue) private var chartWidthInHours = ConstantsGlucoseChart.defaultChartWidthInHours
+    @AppStorage("showTherapySummary") private var showTherapySummary = UserDefaults.standard.showTherapySummary
     @AppStorage(UserDefaults.Key.miniChartHoursToShow.rawValue) private var miniChartHoursToShow = ConstantsGlucoseChart.miniChartHoursToShow1
     @AppStorage(UserDefaults.Key.showTreatmentsOnChart.rawValue) private var hideTreatmentsOnChart = false
     @AppStorage(UserDefaults.Key.showOriginalBGReadings.rawValue) private var hideOriginalBGReadings = false
@@ -87,6 +88,7 @@ struct RootHomeView: View {
     private let actions: RootHomeActions
     private let chartRefreshTimer = Timer.publish(every: ConstantsHomeView.updateHomeViewIntervalInSeconds, on: .main, in: .common).autoconnect()
     private let clockRefreshTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    private let watchCollectorStatusTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     private static let pannedReadingDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.amSymbol = ConstantsUI.timeFormatAM
@@ -148,6 +150,12 @@ struct RootHomeView: View {
             glucoseChartStateManager.cleanUpMemory()
             miniChartStateManager.cleanUpMemory()
             historicalDataCache.cleanUpMemory()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: DirectWatchSettings.changed)) { _ in
+            stateModel.refreshWatchCollectorStatus()
+        }
+        .onReceive(watchCollectorStatusTimer) { _ in
+            if state.dataSource.showsWatchCollectorIcon { stateModel.refreshWatchCollectorStatus() }
         }
         .onReceive(chartRefreshTimer) { _ in
             refreshCurrentTimeRangeIfNeeded(showsLoading: false)
@@ -595,7 +603,7 @@ struct RootHomeView: View {
         for cardWidth: CGFloat,
         horizontalPadding: CGFloat
     ) -> CGFloat {
-        guard state.visibility.showsPump else { return 0 }
+        guard showsPumpPanel else { return 0 }
 
         let availableSpacing = cardWidth
             - (horizontalPadding * 2)
@@ -679,7 +687,7 @@ struct RootHomeView: View {
         height: CGFloat = Layout.glucoseStatusRowHeight
     ) -> some View {
         HStack(spacing: spacing) {
-            if state.visibility.showsPump {
+            if showsPumpPanel {
                 RootHomePumpView(state: pumpDisplayState)
                     .frame(maxHeight: .infinity)
             }
@@ -697,7 +705,7 @@ struct RootHomeView: View {
     private var mainChart: some View {
         configuredMainChart(
             chartState: visibleChartState,
-            showsTreatments: true
+            showsTreatments: showTreatments
         )
     }
 
@@ -935,8 +943,12 @@ struct RootHomeView: View {
         )
     }
 
+    private var showsPumpPanel: Bool {
+        showTreatments && showTherapySummary && state.visibility.showsPump
+    }
+
     private func showsTherapyRow(_ loop: RootHomeLoopState) -> Bool {
-        !state.usesScreenLockNightLayout && (loop.showsIOB || loop.showsCOB || loop.showsAIDStatus)
+        showTreatments && showTherapySummary && !state.usesScreenLockNightLayout && (loop.showsIOB || loop.showsCOB || loop.showsAIDStatus)
     }
 
     private var loopDisplayState: RootHomeLoopState {
@@ -1267,6 +1279,7 @@ private final class RootHomeHistoricalDataCache: ObservableObject {
     private var cacheStartDate: Date?
     private var cacheEndDate: Date?
     private var requestedDate: Date?
+    private var requestedAt = Date.distantPast
     private var requestedVisibleTimeInterval: TimeInterval = 0
     private var isLoading = false
     private var generation = 0
@@ -1287,16 +1300,25 @@ private final class RootHomeHistoricalDataCache: ObservableObject {
     /// entry many days earlier. Later forward extensions fetch only newly possible site changes.
     func prepare(around date: Date, visibleTimeInterval: TimeInterval) {
         requestedDate = date
+        requestedAt = Date()
         requestedVisibleTimeInterval = abs(visibleTimeInterval)
 
-        guard !isLoading else { return }
+        loadRequestedRange()
+    }
+
+    /// Loads any missing range for the latest request, including changes received during a load.
+    private func loadRequestedRange() {
+        guard !isLoading, let date = requestedDate else { return }
 
         let buffer = min(
             max(requestedVisibleTimeInterval * 0.5, Self.minimumBufferTimeInterval),
             Self.maximumBufferTimeInterval
         )
         let desiredStartDate = date.addingTimeInterval(-buffer)
-        let desiredEndDate = min(date.addingTimeInterval(buffer), Date())
+
+        // Keep the upper limit fixed until the next chart request. Rechecking the range after a
+        // load must not start another fetch just because the current time has moved forward.
+        let desiredEndDate = min(date.addingTimeInterval(buffer), requestedAt)
 
         let load: Load?
 
@@ -1349,12 +1371,7 @@ private final class RootHomeHistoricalDataCache: ObservableObject {
                 self.isLoading = false
                 self.revision &+= 1
 
-                if let requestedDate = self.requestedDate {
-                    self.prepare(
-                        around: requestedDate,
-                        visibleTimeInterval: self.requestedVisibleTimeInterval
-                    )
-                }
+                self.loadRequestedRange()
             }
         }
     }
@@ -1400,6 +1417,7 @@ private final class RootHomeHistoricalDataCache: ObservableObject {
         cacheStartDate = nil
         cacheEndDate = nil
         requestedDate = nil
+        requestedAt = .distantPast
         requestedVisibleTimeInterval = 0
         isLoading = false
         revision &+= 1
