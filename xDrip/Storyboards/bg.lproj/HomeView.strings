@@ -38,7 +38,7 @@
 "failed" = "Неуспешно";
 "calibrationNotNecessary" = "Когато използвате вградения алгоритъм на предавателя, ръчното калибриране не е налично.\n\nАко искате да калибрирате, можете да преминете към xDrip алгоритъма в екрана на предавателя (ако е наличен).";
 "dexcomBatteryTooLow" = "Батерията на предавателя е твърде ниска!";
-"enterSensorCode" = "Ако не знаете кода на сензора, използвайте 0000, но имайте предвид, че ще трябва да калибрирате ръчно, преди да получите показания.";
+"enterSensorCode" = "Въведете кода на сензора ръчно, сканирайте етикета на сензора или изберете снимка.\n\nАко нямате кода или искате да използвате сесия на сензора, която вече работи на предавателя, изберете 'Използване без код'.";
 "stopSensorConfirmation" = "Сигурни ли сте, че искате да спрете сензора?";
 "noSensorData" = "Няма данни от сензора";
 "noDataSourceConnected" = "Няма свързан CGM източник на данни";
@@ -79,7 +79,6 @@
 "postProcessingApply" = "Прилагане";
 "postProcessingApplyFrom" = "Прилагане от";
 "postProcessingDexcomShareDataNotUpdated" = "Данните в Dexcom Share няма да бъдат обновени";
-"postProcessingEnable" = "Активиране";
 "postProcessingEnterGlucose" = "Въведете глюкоза";
 "postProcessingEnterValue" = "Въведете стойност";
 "postProcessingFiveMinuteReadings" = "5-минутни показания";
@@ -230,8 +229,7 @@
 "sensorNoiseWarningPersistentTitle" = "Постоянен шум на сензора";
 "sensorRemaining" = "Оставащо на сензора";
 "sensorSerialNumberMetadata" = "Сериен номер на сензора";
-"showHideAdditionalItemsTitle" = "Допълнителни елементи";
-"showHideGlucoseChartTitle" = "Графика на глюкозата";
+"showHideGlucoseChartTitle" = "Графика";
 "showHideHomeScreenFooter" = "Показване или скриване на основните елементи на началния екран, полезно при по-малки размери на екрана на iPhone";
 "showHideHomeScreenTitle" = "Начален екран";
 "showHideItemsTitle" = "Бързо показване/скриване";

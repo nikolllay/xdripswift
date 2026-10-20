@@ -143,3 +143,10 @@
 "voltageB" = "Напрежение B";
 "waiting" = "Изчакване...";
 "waitingForData" = "Изчакване на данни...";
+
+"batteryHistoryHistoricalRangeExplanation" = "Диапазоните завършват при последното записано показание. Празнините показват периоди без показание.";
+"batteryHistoryInactive" = "Неактивен предавател";
+"bluetoothAccessInstructions" = "За да се свържете, отворете Настройки → Поверителност и сигурност → Bluetooth и разрешете достъп за %@.";
+"bluetoothAccessNotEnabled" = "Достъпът до Bluetooth не е разрешен";
+"bluetoothAccessRestrictedInstructions" = "Ограниченията на устройството не позволяват достъп до Bluetooth. Проверете 'Екранно време' или се свържете с администратора на устройството, за да разрешите достъпа.";
+"transmitterExpiresLabel" = "Изтича";

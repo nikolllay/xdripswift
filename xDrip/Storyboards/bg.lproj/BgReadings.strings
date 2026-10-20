@@ -24,3 +24,8 @@
 "glucoseValueSectionHeader" = "Стойност на глюкозата";
 "rawValue" = "Необработена стойност";
 "smoothedValue" = "Изгладена стойност";
+
+"alsoCollectedByWatch" = "Събрано и от часовника";
+"backfilledViaWatchAtFooterFormat" = "Попълнено допълнително чрез часовника в %@";
+"receivedViaWatch" = "Получено чрез часовника";
+"receivedViaWatchAtFooterFormat" = "Получено чрез часовника в %@";

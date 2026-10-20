@@ -58,7 +58,6 @@
 "common_discardChanges" = "Отхвърляне на промените";
 "common_dismiss" = "Затваряне";
 "common_enterValue" = "Въведете стойност";
-"common_landscape_comparingWithLast" = "Сравнение с последните:";
 "common_landscape_comparisonDays" = "%d дни";
 "common_landscape_comparisonNone" = "Няма";
 "common_notAvailable" = "Не е налично";
@@ -134,3 +133,13 @@
 "common_value" = "Стойност";
 "therapy.estimatedCOB" = "Изчислени активни въглехидрати";
 "therapy.estimatedIOB" = "Изчислен активен инсулин";
+
+"common_close" = "Затваряне";
+"common_enable" = "Активиране";
+"common_landscape_showAGPChartData" = "Показване на AGP данни за:";
+"common_sensorWaitingForReading" = "Изчакване на първото показание…";
+"common_sensorWarmupComplete" = "Загряването завърши";
+"common_statistics_estimatedA1c" = "Изчислен HbA1c";
+"common_statistics_gmiTrend" = "Тенденция на GMI";
+"common_statistics_threeDay" = "По 3 дни";
+"common_statistics_weekly" = "По седмици";

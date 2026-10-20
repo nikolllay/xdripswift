@@ -27,3 +27,10 @@
 "alerts_snooze_low_title" = "Ниска";
 "alerts_snooze_very_high_title" = "Много висока";
 "alerts_snooze_very_low_title" = "Много ниска";
+
+"sensorExpiry.endingSoon" = "Сензорът скоро изтича";
+"sensorExpiry.endingSoonBody" = "Очаква се сензорът ви да достигне края на живота си на %@.";
+"sensorExpiry.expectedExpiry" = "Очаквано изтичане на сензора";
+"sensorExpiry.expectedExpiryBody" = "Сензорът ви достигна очакваното време на изтичане (%@).";
+"sensorExpiry.hoursBefore" = "Часове преди изтичане";
+"sensorExpiry.hoursHelp" = "Въведете цяло число от 1 до 48 часа.";

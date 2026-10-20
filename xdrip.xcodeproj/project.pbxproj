@@ -1269,6 +1269,8 @@
 		9563BEB92F8D5A5000F5E6FD /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/LibreNFC.strings; sourceTree = "<group>"; };
 		9563BEBA2F8D5A5000F5E6FD /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9563BEBB2F8D5A5000F5E6FD /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/BgReadings.strings; sourceTree = "<group>"; };
+		9563BEBC2F8D5A5000F5E6FD /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = xDrip/Storyboards/bg.lproj/Libre3.strings; sourceTree = SOURCE_ROOT; };
+		9563BEBD2F8D5A5000F5E6FD /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4A899F69E74DE91DDF24C126 /* DexcomWatchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexcomWatchProtocol.swift; sourceTree = "<group>"; };
 		4A9B10112F0A000100000001 /* BgAdjustment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BgAdjustment+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4A9B10122F0A000100000001 /* BgAdjustment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BgAdjustment+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -5582,6 +5584,7 @@
 				B3C9894DCC8ADD17A9D6F5A3 /* it */,
 				8CFC87D5A85A7A3686663EF8 /* nl */,
 				2D4ADAF244D64259BFCC150C /* pt */,
+				9563BEBC2F8D5A5000F5E6FD /* bg */,
 			);
 			name = Libre3.strings;
 			sourceTree = "<group>";
@@ -6034,6 +6037,7 @@
 				D17EC7000000000000000005 /* fr */,
 				D17EC7000000000000000006 /* de */,
 				D17EC7000000000000000007 /* nl */,
+				9563BEBD2F8D5A5000F5E6FD /* bg */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

@@ -1,7 +1,6 @@
 "alerttypessettingsview_screentitle" = "Видове аларми";
 "alerttypesettingsview_screentitle" = "Редактиране на вид аларма";
 "alerttypesettingsview_name" = "Име";
-"alerttypesettingsview_enabled" = "Активирана";
 "alerttypesettingsview_vibrate" = "Вибрация";
 "alerttypesettingsview_snoozevianotification" = "Отлагане чрез известие";
 "alerttypesettingsview_defaultsnoozeperiod" = "Време за отлагане по подразбиране (мин)";
@@ -15,3 +14,5 @@
 "alerttypenamealreadyexistsmessages" = "Вид аларма с това име вече съществува. Използвайте друго име";
 "confirmdeletionalerttype" = "Изтриване на вид аларма: ";
 
+"alerttypesettingsview_previewalert" = "Прослушване на алармата";
+"alerttypesettingsview_repeatsound" = "Повтаряне на звука";
