@@ -208,7 +208,7 @@
 		47CD64142BE9506C002BDA68 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CD64132BE9506C002BDA68 /* UserNotifications.framework */; };
 		47CD64162BE9506C002BDA68 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CD64152BE9506C002BDA68 /* UserNotificationsUI.framework */; };
 		47CD64192BE9506C002BDA68 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CD64182BE9506C002BDA68 /* NotificationViewController.swift */; };
-		47CD641C2BE9506C002BDA68 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 47CD641B2BE9506C002BDA68 /* Base */; };
+		47CD641C2BE9506C002BDA68 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CD641A2BE9506C002BDA68 /* MainInterface.storyboard */; };
 		47CD64202BE9506C002BDA68 /* xDrip Notification Context Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 47CD64122BE9506C002BDA68 /* xDrip Notification Context Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		47CD642C2BEBEB0E002BDA68 /* AlertUrgencyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CD642B2BEBEB0E002BDA68 /* AlertUrgencyType.swift */; };
 		47CD642D2BEBEB0E002BDA68 /* AlertUrgencyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CD642B2BEBEB0E002BDA68 /* AlertUrgencyType.swift */; };
@@ -4457,7 +4457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4737758D2C14DDC900525B90 /* Assets.xcassets in Resources */,
-				47CD641C2BE9506C002BDA68 /* Base in Resources */,
+				47CD641C2BE9506C002BDA68 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
