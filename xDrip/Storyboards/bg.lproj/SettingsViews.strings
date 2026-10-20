@@ -498,7 +498,7 @@
 "therapy.curves" = "Криви на IOB/COB";
 "therapy.none" = "Няма";
 "therapy.scaleSmallDoses" = "Малки дози";
-"therapy.scaleStandard" = "Стандартна";
+"therapy.scaleStandard" = "Стандартен";
 "therapy.smallBolusThreshold" = "Малък болус";
 "therapy.smallCarbThreshold" = "Малко въглехидрати";
 "therapy.summary" = "Обобщение на терапията";
